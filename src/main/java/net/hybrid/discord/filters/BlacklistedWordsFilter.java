@@ -1,0 +1,102 @@
+package net.hybrid.discord.filters;
+
+import lombok.SneakyThrows;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.hybrid.discord.DiscordApplication;
+import net.hybrid.discord.utility.ChatAction;
+import net.hybrid.discord.utility.DiscordRole;
+import net.hybrid.discord.utility.Utils;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+
+import javax.annotation.Nonnull;
+import java.awt.*;
+import java.io.File;
+import java.util.List;
+
+public class BlacklistedWordsFilter extends ListenerAdapter {
+
+    @Override
+    @SneakyThrows
+    public void onGuildMessageReceived(@Nonnull GuildMessageReceivedEvent event) {
+        if (event.getMember() == null) return;
+        if (Utils.hasRole(event.getMember(), DiscordRole.OWNER)
+                || Utils.hasRole(event.getMember(), DiscordRole.CHAT_BYPASS)
+                || Utils.hasRole(event.getMember(), DiscordRole.ADMIN)) return;
+        if (Utils.isStaffChannel(event.getChannel())) return;
+
+        File file = new File(DiscordApplication.getInstance().getDataFolder(), "blacklisted-words.yml");
+        FileConfiguration config = YamlConfiguration.loadConfiguration(file);
+        List<String> blacklistWords = config.getStringList("words");
+        String[] messageWords = event.getMessage().getContentRaw().split(" ");
+
+        boolean blacklist = false;
+        StringBuilder words = new StringBuilder();
+
+        for (String word : messageWords) {
+            word = replace(word);
+
+            if (blacklistWords.contains(word.toLowerCase())) {
+                blacklist = true;
+                words.append(word).append("   ");
+            }
+        }
+
+        if (blacklist) {
+            event.getMessage().delete().queue();
+
+            EmbedBuilder embed = new EmbedBuilder();
+            embed.setColor(Color.RED);
+            embed.setAuthor(event.getMember().getEffectiveName(), event.getMember().getUser().getEffectiveAvatarUrl(), event.getMember().getUser().getEffectiveAvatarUrl());
+            embed.addField("Action", ChatAction.BLACKLISTED.name(), true);
+            embed.addField("Author", "<@" + event.getMember().getId() + ">", true);
+            embed.addField("Message ID", event.getMessageId(), true);
+            embed.addField("Channel", "<#" + event.getChannel().getId() + ">", true);
+            embed.addBlankField(true);
+            embed.addField("Blacklisted Words", words.toString(), true);
+            embed.addField("Message", event.getMessage().getContentDisplay(), true);
+
+            Utils.getDiscordLogsChannel().sendMessage(embed.build()).queue();
+        }
+    }
+
+    private String replace(String input){
+        return input.replace("'", "")
+                .replace(".", "")
+                .replace(",", "")
+                .replace("?", "")
+                .replace("!", "")
+                .replace("_", " ")
+                .replace("-", " ")
+                .replace("@", " ")
+                .replace("$", "")
+                .replace("%", "")
+                .replace("&", "")
+                .replace("{", "")
+                .replace("}", "")
+                .replace("(", "")
+                .replace(")", "");
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -49,11 +49,11 @@ public class ClearMessageCommand extends BotCommand {
             channel.deleteMessages(messages).queueAfter(1,TimeUnit.SECONDS);
 
             EmbedBuilder logEmbed = new EmbedBuilder();
-            logEmbed.setColor(Color.ORANGE);
+            logEmbed.setColor(Color.CYAN);
             logEmbed.setTitle("Messages Cleared");
             logEmbed.appendDescription("Someone cleared chat messages in a channel!\n\n");
-            logEmbed.appendDescription("**Who:** " + member.getUser().getName() + "#" + member.getUser().getDiscriminator());
-            logEmbed.appendDescription("\n**Channel:** #" + channel.getName());
+            logEmbed.appendDescription("**Who:** <@" + member.getId() + ">");
+            logEmbed.appendDescription("\n**Channel:** <#" + channel.getId() + ">");
             logEmbed.appendDescription("\n**Message Amount:** " + (messages.size() - 1));
             Utils.getDiscordLogsChannel().sendMessage(logEmbed.build()).queue();
 

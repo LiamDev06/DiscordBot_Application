@@ -29,14 +29,16 @@ public class Utils {
     }
 
     public static boolean isStaff(Member member){
-        if (hasRole(member, DiscordRole.OWNER) || hasRole(member, DiscordRole.MANAGER) ||
-                hasRole(member, DiscordRole.ADMIN) || hasRole(member, DiscordRole.SUPPORT_TEAM) ||
-                hasRole(member, DiscordRole.DEVELOPER) || hasRole(member, DiscordRole.MODERATOR) ||
-                hasRole(member, DiscordRole.HELPER)) {
-            return true;
-        } else {
-            return false;
-        }
+        return hasRole(member, DiscordRole.OWNER) ||  hasRole(member, DiscordRole.DISCORD_MANAGER) ||
+                hasRole(member, DiscordRole.SENIOR_MODERATOR) ||
+                hasRole(member, DiscordRole.ADMIN) || hasRole(member, DiscordRole.MODERATOR) ||
+                hasRole(member, DiscordRole.HELPER);
+    }
+
+    public static boolean isStaffChannel(TextChannel channel) {
+        return channel.getParent().getName().equalsIgnoreCase("logs")
+                || channel.getParent().getName().equalsIgnoreCase("teams")
+                || channel.getParent().getName().equalsIgnoreCase("staff");
     }
 
     public static TextChannel getStaffCommandsChannel() {
@@ -53,6 +55,10 @@ public class Utils {
 
     public static TextChannel getPunishmentLogsChannel() {
         return guild.getTextChannelsByName("punishments-logs", true).get(0);
+    }
+
+    public static TextChannel getUserReportsChannel() {
+        return guild.getTextChannelsByName("user-reports", true).get(0);
     }
 
 }

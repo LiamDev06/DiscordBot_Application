@@ -1,0 +1,4 @@
+name: HybridDiscordApplication
+main: net.hybrid.discord.DiscordApplication
+version: 0.0.1
+authors: ["LiamHBest", "Hybrid Development"]
