@@ -10,7 +10,9 @@ import javax.annotation.Nonnull;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class ChatLogs extends ListenerAdapter {
 
@@ -53,24 +55,29 @@ public class ChatLogs extends ListenerAdapter {
     }
 
     public boolean shouldLog(TextChannel textChannel){
-        return textChannel.getName().equalsIgnoreCase("minecraft-talk");
-        /**
-        return  (textChannel.getName().equalsIgnoreCase("verify")
-                || textChannel.getName().equalsIgnoreCase("\uD83D\uDC4B-welcome-\uD83D\uDC4B")
-                || textChannel.getParent().getName().equalsIgnoreCase("INFORMATION")
-                || textChannel.getParent().getName().equalsIgnoreCase("\uD83D\uDCDD Misc \uD83D\uDCDD")
-                || textChannel.getName().equalsIgnoreCase("music-control")
-                || textChannel.getParent().getName().equalsIgnoreCase("TICKETS")
-                || textChannel.getParent().getName().equalsIgnoreCase("BUG REPORTS")
-                || textChannel.getParent().getName().equalsIgnoreCase("SUGGESTIONS")
-                || textChannel.getParent().getName().equalsIgnoreCase("APPLICATIONS")
-                || textChannel.getParent().getName().equalsIgnoreCase("STAFF")
-                || textChannel.getParent().getName().equalsIgnoreCase("TEAMS")
-                || textChannel.getParent().getName().equalsIgnoreCase("LOGS"));
-         */
+        ArrayList<String> channels = new ArrayList<>(
+                DiscordApplication.getInstance().getConfig().getStringList("channelsToLog")
+        );
+
+        for (String s : channels) {
+            if (textChannel.getName().contains(s)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
+    public static String getMessageFromId(TextChannel textChannel, String id, String year, String month, String day){
+
+        return "Last Message";
+    }
 }
+
+
+
+
+
 
 
 

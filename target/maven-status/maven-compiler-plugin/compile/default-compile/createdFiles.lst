@@ -2,6 +2,7 @@ net\hybrid\discord\DiscordApplication.class
 net\hybrid\discord\commands\ResetChatCommand.class
 net\hybrid\discord\filters\ChatLogs.class
 com\github\liamhbest0608\BotCommand.class
+net\hybrid\discord\managers\JoinLeaveManager.class
 net\hybrid\discord\filters\ChatActionEvents.class
 net\hybrid\discord\commands\ClearMessageCommand.class
 net\hybrid\discord\utility\ChatAction.class

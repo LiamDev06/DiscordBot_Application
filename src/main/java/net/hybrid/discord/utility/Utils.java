@@ -36,9 +36,13 @@ public class Utils {
     }
 
     public static boolean isStaffChannel(TextChannel channel) {
-        return channel.getParent().getName().equalsIgnoreCase("logs")
-                || channel.getParent().getName().equalsIgnoreCase("teams")
-                || channel.getParent().getName().equalsIgnoreCase("staff");
+        try {
+            return channel.getParent().getName().equalsIgnoreCase("logs")
+                    || channel.getParent().getName().equalsIgnoreCase("teams")
+                    || channel.getParent().getName().equalsIgnoreCase("staff");
+        } catch (NullPointerException exception) {
+            return false;
+        }
     }
 
     public static TextChannel getStaffCommandsChannel() {

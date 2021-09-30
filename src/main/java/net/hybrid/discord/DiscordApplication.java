@@ -12,6 +12,7 @@ import net.hybrid.discord.commands.ResetChatCommand;
 import net.hybrid.discord.filters.BlacklistedWordsFilter;
 import net.hybrid.discord.filters.ChatActionEvents;
 import net.hybrid.discord.filters.ChatLogs;
+import net.hybrid.discord.managers.JoinLeaveManager;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -28,7 +29,7 @@ public class DiscordApplication extends JavaPlugin {
     private JDA jda;
     private final Logger LOGGER = getLogger();
     private final String VERSION = getDescription().getVersion();
-    private final String TOKEN = "TOKEN";
+    private final String TOKEN = "ODc4Njc4NzE5NjkzMjEzNzM2.YSErUw.0Gro3i8EVKrL9Uzo2jc8MGLD9GM";
 
     @Override
     public void onEnable() {
@@ -92,6 +93,7 @@ public class DiscordApplication extends JavaPlugin {
         jda.addEventListener(new BlacklistedWordsFilter());
         jda.addEventListener(new ChatActionEvents());
         jda.addEventListener(new ChatLogs());
+        jda.addEventListener(new JoinLeaveManager());
     }
 
     public static DiscordApplication getInstance(){
