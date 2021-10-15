@@ -22,11 +22,11 @@ public class DiscordRole {
     public static final Role MEMBER = guild.getRoleById(880208064194691146L);
     public static final Role VERIFIED = guild.getRoleById(891099834872897566L);
     public static final Role LINKED = guild.getRoleById(891097398066167829L);
+    public static final Role PING_FREQUENT_UPDATES = guild.getRoleById(898232378743455754L);
     public static final Role PING_EVENTS = guild.getRoleById(882764493933936670L);
-    public static final Role PING_SMP_UPDATES = guild.getRoleById(882764530093002842L);
+    public static final Role PING_SURVIVAL_UPDATES = guild.getRoleById(882764530093002842L);
     public static final Role STAFF = guild.getRoleById(880208064194691145L);
     public static final Role MUSIC_BOT_ACCESS = guild.getRoleById(891102994895077396L);
-    public static final Role BOTS = guild.getRoleById(880208064211484682L);
     public static final Role CHAT_BYPASS = guild.getRoleById(891108005536481352L);
     public static final Role SYNC_LOCK = guild.getRoleById(891097327622844467L);
     public static final Role UNVERIFIED = guild.getRoleById(891102923948437514L);

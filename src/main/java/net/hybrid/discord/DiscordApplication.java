@@ -13,6 +13,8 @@ import net.hybrid.discord.filters.BlacklistedWordsFilter;
 import net.hybrid.discord.filters.ChatActionEvents;
 import net.hybrid.discord.filters.ChatLogs;
 import net.hybrid.discord.managers.JoinLeaveManager;
+import net.hybrid.discord.managers.RolesReaction;
+import net.hybrid.discord.managers.VerifyManager;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -94,6 +96,8 @@ public class DiscordApplication extends JavaPlugin {
         jda.addEventListener(new ChatActionEvents());
         jda.addEventListener(new ChatLogs());
         jda.addEventListener(new JoinLeaveManager());
+        jda.addEventListener(new VerifyManager());
+        jda.addEventListener(new RolesReaction());
     }
 
     public static DiscordApplication getInstance(){
