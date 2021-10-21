@@ -6,6 +6,9 @@ import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.hybrid.discord.DiscordApplication;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Utils {
 
     private static final Guild guild = DiscordApplication.getInstance().getDiscordServer();
@@ -46,23 +49,73 @@ public class Utils {
     }
 
     public static TextChannel getStaffCommandsChannel() {
-        return guild.getTextChannelsByName("staff-commands", true).get(0);
+        final List<TextChannel> list = new ArrayList<>(guild.getTextChannelsByName("commands", true));
+        TextChannel value = null;
+
+        for (TextChannel channel : list) {
+            if (channel.getParent().getName().equalsIgnoreCase("LOGS")) {
+                value = channel;
+                break;
+            }
+        }
+
+        return value;
     }
 
     public static TextChannel getDiscordLogsChannel() {
-        return guild.getTextChannelsByName("discord-logs", true).get(0);
+        final List<TextChannel> list = new ArrayList<>(guild.getTextChannelsByName("discord", true));
+        TextChannel value = null;
+
+        for (TextChannel channel : list) {
+            if (channel.getParent().getName().equalsIgnoreCase("LOGS")) {
+                value = channel;
+                break;
+            }
+        }
+
+        return value;
     }
 
     public static TextChannel getServerLogsChannel() {
-        return guild.getTextChannelsByName("server-logs", true).get(0);
+        final List<TextChannel> list = new ArrayList<>(guild.getTextChannelsByName("minecraft", true));
+        TextChannel value = null;
+
+        for (TextChannel channel : list) {
+            if (channel.getParent().getName().equalsIgnoreCase("LOGS")) {
+                value = channel;
+                break;
+            }
+        }
+
+        return value;
     }
 
     public static TextChannel getPunishmentLogsChannel() {
-        return guild.getTextChannelsByName("punishments-logs", true).get(0);
+        final List<TextChannel> list = new ArrayList<>(guild.getTextChannelsByName("punishments", true));
+        TextChannel value = null;
+
+        for (TextChannel channel : list) {
+            if (channel.getParent().getName().equalsIgnoreCase("LOGS")) {
+                value = channel;
+                break;
+            }
+        }
+
+        return value;
     }
 
     public static TextChannel getUserReportsChannel() {
-        return guild.getTextChannelsByName("user-reports", true).get(0);
+        final List<TextChannel> list = new ArrayList<>(guild.getTextChannelsByName("reports", true));
+        TextChannel value = null;
+
+        for (TextChannel channel : list) {
+            if (channel.getParent().getName().equalsIgnoreCase("LOGS")) {
+                value = channel;
+                break;
+            }
+        }
+
+        return value;
     }
 
 }
