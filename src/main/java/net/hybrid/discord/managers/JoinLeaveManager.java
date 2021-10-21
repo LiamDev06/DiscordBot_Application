@@ -9,7 +9,6 @@ import net.hybrid.discord.utility.Utils;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
-import java.util.Random;
 
 public class JoinLeaveManager extends ListenerAdapter {
 
@@ -29,7 +28,7 @@ public class JoinLeaveManager extends ListenerAdapter {
         Utils.getDiscordLogsChannel().sendMessage(embed.build()).queue();
 
         EmbedBuilder join = new EmbedBuilder();
-        join.setColor(colors[new Random().nextInt(colors.length)]);
+        join.setColor(Color.GREEN);
         join.setTitle(":wave: Welcome to Hybrid");
         join.appendDescription("Welcome to the official Hybrid discord!\n");
         join.appendDescription("This is the community discord for the Hybrid Minecraft server, and we strive to bring the community together by " +
@@ -56,7 +55,4 @@ public class JoinLeaveManager extends ListenerAdapter {
 
         Utils.getDiscordLogsChannel().sendMessage(embed.build()).queue();
     }
-
-    private final Color[] colors = { Color.CYAN, Color.GREEN, Color.MAGENTA, Color.YELLOW, Color.RED, Color.PINK };
-
 }

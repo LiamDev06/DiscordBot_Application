@@ -10,6 +10,7 @@ import net.hybrid.discord.utility.DiscordRole;
 import net.hybrid.discord.utility.Utils;
 
 import java.awt.*;
+import java.util.concurrent.TimeUnit;
 
 public class VerifyManager extends ListenerAdapter {
 
@@ -27,8 +28,8 @@ public class VerifyManager extends ListenerAdapter {
             embed.appendDescription("Before you can access our channels we require you to verify yourself ");
             embed.appendDescription("and make sure that you are a human. This will help us with keeping ");
             embed.appendDescription("bot free with real and active members! Thank you!\n\n");
-            embed.appendDescription("**Server IP:** COMING SOON\n");
-            embed.appendDescription("**Website/Forums:** COMING SOON\n");
+            embed.appendDescription("**Server IP:** hybridplays.com\n");
+            embed.appendDescription("**Website/Forums:** https://hybridplays.com\n");
             embed.appendDescription("**Network Announcements:** <#880208195845509190>\n");
             embed.appendDescription("**Information and Rules:** <#880208064211484691>");
 
@@ -43,11 +44,14 @@ public class VerifyManager extends ListenerAdapter {
 
         if (event.getChannel().getIdLong() == verificationChannelID){
             if (!event.getUser().isBot()) {
-                Role unverifiedID = DiscordRole.UNVERIFIED;
-                Role verifiedID = DiscordRole.VERIFIED;
+                Role unverified = DiscordRole.UNVERIFIED;
+                Role verified = DiscordRole.VERIFIED;
 
-                event.getGuild().addRoleToMember(event.getUserId(), verifiedID).queue();
-                event.getGuild().removeRoleFromMember(event.getUserId(), unverifiedID).queue();
+                if (unverified == null) return;
+                if (verified == null) return;
+
+                event.getGuild().addRoleToMember(event.getUserId(), verified).queue();
+                event.getGuild().removeRoleFromMember(event.getUserId(), unverified).queueAfter(1, TimeUnit.SECONDS);
 
                 event.getReaction().removeReaction(event.getUser()).queue();
             }

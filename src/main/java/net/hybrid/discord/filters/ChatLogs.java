@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
 public class ChatLogs extends ListenerAdapter {
 
@@ -32,6 +31,9 @@ public class ChatLogs extends ListenerAdapter {
         String month = monthFormat.format(now);
         String day = dayFormat.format(now);
         String time = timeFormat.format(now);
+
+        new File(DiscordApplication.getInstance().getDataFolder() + "/logs").mkdirs();
+        new File(DiscordApplication.getInstance().getDataFolder() + "/logs" + "/#" + event.getChannel().getName()).mkdirs();
 
         File file = new File(DiscordApplication.getInstance().getDataFolder() + "/logs"
          + "/#" + event.getChannel().getName(), year + "-" + month + "-" + day + "_log.log");
@@ -66,11 +68,6 @@ public class ChatLogs extends ListenerAdapter {
         }
 
         return false;
-    }
-
-    public static String getMessageFromId(TextChannel textChannel, String id, String year, String month, String day){
-
-        return "Last Message";
     }
 }
 

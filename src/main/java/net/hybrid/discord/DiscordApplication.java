@@ -7,7 +7,10 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.utils.MemberCachePolicy;
+import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import net.hybrid.discord.commands.ClearMessageCommand;
+import net.hybrid.discord.commands.ForceVerifyCommand;
 import net.hybrid.discord.commands.ResetChatCommand;
 import net.hybrid.discord.filters.BlacklistedWordsFilter;
 import net.hybrid.discord.filters.ChatActionEvents;
@@ -41,6 +44,7 @@ public class DiscordApplication extends JavaPlugin {
         try {
             this.jda = JDABuilder.createDefault(this.TOKEN)
                     .setActivity(Activity.playing("Hybrid Network"))
+                    .setMemberCachePolicy(MemberCachePolicy.ALL)
 
                     .enableIntents(GatewayIntent.GUILD_MEMBERS)
                     .enableIntents(GatewayIntent.GUILD_BANS)
@@ -56,6 +60,8 @@ public class DiscordApplication extends JavaPlugin {
                     .enableIntents(GatewayIntent.DIRECT_MESSAGE_REACTIONS)
                     .enableIntents(GatewayIntent.DIRECT_MESSAGE_TYPING)
 
+                    .enableCache(CacheFlag.MEMBER_OVERRIDES)
+
                     .build();
         } catch (LoginException exception) {
             exception.printStackTrace();
@@ -64,6 +70,7 @@ public class DiscordApplication extends JavaPlugin {
         new CommandAPI("!", jda, true);
         new ResetChatCommand();
         new ClearMessageCommand();
+        new ForceVerifyCommand();
 
         saveDefaultConfig();
         getConfig().options().copyDefaults(true);

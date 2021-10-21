@@ -4,7 +4,7 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
-import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionRemoveEvent;
+import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.hybrid.discord.utility.DiscordRole;
 import net.hybrid.discord.utility.Utils;
@@ -70,7 +70,7 @@ public class RolesReaction extends ListenerAdapter {
     }
 
     @Override
-    public void onGuildMessageReactionRemove(@Nonnull GuildMessageReactionRemoveEvent event) {
+    public void onMessageReactionRemove(@Nonnull MessageReactionRemoveEvent event) {
         long verificationChannelID = 882764130862366770L;
 
         if (event.getChannel().getIdLong() == verificationChannelID && event.getMember() != null) {
