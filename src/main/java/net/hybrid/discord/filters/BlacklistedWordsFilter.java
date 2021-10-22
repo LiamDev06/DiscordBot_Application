@@ -18,18 +18,23 @@ import java.util.List;
 
 public class BlacklistedWordsFilter extends ListenerAdapter {
 
+    public static List<String> blacklistWords;
+
+    public BlacklistedWordsFilter() {
+        File file = new File(DiscordApplication.getInstance().getDataFolder(), "blacklisted-words.yml");
+        FileConfiguration config = YamlConfiguration.loadConfiguration(file);
+
+        blacklistWords = config.getStringList("words");
+    }
+
     @Override
     @SneakyThrows
     public void onGuildMessageReceived(@Nonnull GuildMessageReceivedEvent event) {
         if (event.getMember() == null) return;
         if (Utils.hasRole(event.getMember(), DiscordRole.OWNER)
-                || Utils.hasRole(event.getMember(), DiscordRole.CHAT_BYPASS)
                 || Utils.hasRole(event.getMember(), DiscordRole.ADMIN)) return;
         if (Utils.isStaffChannel(event.getChannel())) return;
 
-        File file = new File(DiscordApplication.getInstance().getDataFolder(), "blacklisted-words.yml");
-        FileConfiguration config = YamlConfiguration.loadConfiguration(file);
-        List<String> blacklistWords = config.getStringList("words");
         String[] messageWords = event.getMessage().getContentRaw().split(" ");
 
         boolean blacklist = false;
@@ -45,6 +50,7 @@ public class BlacklistedWordsFilter extends ListenerAdapter {
         }
 
         if (blacklist) {
+            ChatActionEvents.shouldNotSendDeleted.add(event.getMessageId());
             event.getMessage().delete().queue();
 
             EmbedBuilder embed = new EmbedBuilder();
@@ -62,7 +68,7 @@ public class BlacklistedWordsFilter extends ListenerAdapter {
         }
     }
 
-    private String replace(String input){
+    public static String replace(String input){
         return input.replace("'", "")
                 .replace(".", "")
                 .replace(",", "")

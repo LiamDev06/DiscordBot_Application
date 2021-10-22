@@ -7,10 +7,12 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageUpdateEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.hybrid.discord.utility.ChatAction;
+import net.hybrid.discord.utility.DiscordRole;
 import net.hybrid.discord.utility.Utils;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ChatActionEvents extends ListenerAdapter {
@@ -20,6 +22,9 @@ public class ChatActionEvents extends ListenerAdapter {
 
     //                   Msg ID   Member
     private final HashMap<String, Member> messageMember = new HashMap<>();
+
+    //                      Msg ID
+    public static final ArrayList<String> shouldNotSendDeleted = new ArrayList<>();
 
     @Override
     public void onGuildMessageReceived(@Nonnull GuildMessageReceivedEvent event) {
@@ -39,6 +44,10 @@ public class ChatActionEvents extends ListenerAdapter {
     @Override
     public void onGuildMessageDelete(@Nonnull GuildMessageDeleteEvent event) {
         if (!messageMember.containsKey(event.getMessageId())) return;
+        if (shouldNotSendDeleted.contains(event.getMessageId())) {
+            shouldNotSendDeleted.remove(event.getMessageId());
+            return;
+        }
 
         try {
             Member member = messageMember.get(event.getMessageId());
@@ -73,6 +82,40 @@ public class ChatActionEvents extends ListenerAdapter {
 
         String before = messages.getOrDefault(event.getMessageId(),
                 "COULD NOT BE FETCHED");
+
+        if (!Utils.hasRole(event.getMember(), DiscordRole.ADMIN) && !Utils.hasRole(event.getMember(), DiscordRole.OWNER)) {
+            String[] messageWords = event.getMessage().getContentRaw().split(" ");
+
+            boolean blacklist = false;
+            StringBuilder words = new StringBuilder();
+
+            for (String word : messageWords) {
+                word = BlacklistedWordsFilter.replace(word);
+
+                if (BlacklistedWordsFilter.blacklistWords.contains(word.toLowerCase())) {
+                    blacklist = true;
+                    words.append(word).append("   ");
+                }
+            }
+
+            if (blacklist) {
+                shouldNotSendDeleted.add(event.getMessageId());
+                event.getMessage().delete().queue();
+
+                EmbedBuilder embed = new EmbedBuilder();
+                embed.setColor(Color.RED);
+                embed.setAuthor(event.getMember().getEffectiveName(), event.getMember().getUser().getEffectiveAvatarUrl(), event.getMember().getUser().getEffectiveAvatarUrl());
+                embed.addField("Action", ChatAction.BLACKLISTED.name(), true);
+                embed.addField("Author", "<@" + event.getMember().getId() + ">", true);
+                embed.addField("Message ID", event.getMessageId(), true);
+                embed.addField("Channel", "<#" + event.getChannel().getId() + ">", true);
+                embed.addBlankField(true);
+                embed.addField("Blacklisted Words", words.toString(), true);
+                embed.addField("Message", event.getMessage().getContentDisplay(), true);
+
+                Utils.getDiscordLogsChannel().sendMessage(embed.build()).queue();
+            }
+        }
 
         EmbedBuilder embed = new EmbedBuilder();
         embed.setColor(Color.RED);

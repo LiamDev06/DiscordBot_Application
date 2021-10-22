@@ -5,19 +5,17 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import net.hybrid.discord.commands.ClearMessageCommand;
-import net.hybrid.discord.commands.ForceVerifyCommand;
+import net.hybrid.discord.commands.InformationEmbedCommand;
 import net.hybrid.discord.commands.ResetChatCommand;
 import net.hybrid.discord.filters.BlacklistedWordsFilter;
 import net.hybrid.discord.filters.ChatActionEvents;
 import net.hybrid.discord.filters.ChatLogs;
 import net.hybrid.discord.managers.JoinLeaveManager;
 import net.hybrid.discord.managers.RolesReaction;
-import net.hybrid.discord.managers.VerifyManager;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -25,7 +23,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import javax.security.auth.login.LoginException;
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 import java.util.logging.Logger;
 
 public class DiscordApplication extends JavaPlugin {
@@ -70,7 +67,7 @@ public class DiscordApplication extends JavaPlugin {
         new CommandAPI("!", jda, true);
         new ResetChatCommand();
         new ClearMessageCommand();
-        new ForceVerifyCommand();
+        new InformationEmbedCommand();
 
         saveDefaultConfig();
         getConfig().options().copyDefaults(true);
@@ -103,7 +100,6 @@ public class DiscordApplication extends JavaPlugin {
         jda.addEventListener(new ChatActionEvents());
         jda.addEventListener(new ChatLogs());
         jda.addEventListener(new JoinLeaveManager());
-        jda.addEventListener(new VerifyManager());
         jda.addEventListener(new RolesReaction());
     }
 

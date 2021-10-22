@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageHistory;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.hybrid.discord.filters.ChatActionEvents;
 import net.hybrid.discord.utility.Utils;
 
 import java.awt.*;
@@ -40,6 +41,9 @@ public class ClearMessageCommand extends BotCommand {
             MessageHistory history = new MessageHistory(channel);
             List<Message> messages = history.retrievePast(amount + 1).complete();
 
+            for (Message target : messages) {
+                ChatActionEvents.shouldNotSendDeleted.add(target.getId());
+            }
             EmbedBuilder embed = new EmbedBuilder();
             embed.setColor(Color.GREEN);
             embed.setAuthor("Command Processed! Deleting messages...");

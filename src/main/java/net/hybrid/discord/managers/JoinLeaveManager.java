@@ -14,10 +14,10 @@ public class JoinLeaveManager extends ListenerAdapter {
 
     @Override
     public void onGuildMemberJoin(@Nonnull GuildMemberJoinEvent event){
-        assert DiscordRole.UNVERIFIED != null;
         int memberCount = event.getGuild().getMemberCount() - 2;
+        assert DiscordRole.MEMBER != null;
 
-        event.getGuild().addRoleToMember(event.getUser().getId(), DiscordRole.UNVERIFIED).queue();
+        event.getGuild().addRoleToMember(event.getUser().getId(), DiscordRole.MEMBER).queue();
 
         EmbedBuilder embed = new EmbedBuilder();
         embed.setColor(Color.GREEN);
