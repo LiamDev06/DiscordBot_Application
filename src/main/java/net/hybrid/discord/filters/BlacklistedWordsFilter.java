@@ -34,6 +34,7 @@ public class BlacklistedWordsFilter extends ListenerAdapter {
         if (Utils.hasRole(event.getMember(), DiscordRole.OWNER)
                 || Utils.hasRole(event.getMember(), DiscordRole.ADMIN)) return;
         if (Utils.isStaffChannel(event.getChannel())) return;
+        if (!Utils.hasChatFilter(event.getChannel())) return;
 
         String[] messageWords = event.getMessage().getContentRaw().split(" ");
 

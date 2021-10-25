@@ -4,7 +4,6 @@ import com.github.liamhbest0608.BotCommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.hybrid.discord.utility.DiscordRole;
 import net.hybrid.discord.utility.Utils;

@@ -5,19 +5,19 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.hybrid.discord.DiscordApplication;
+import net.hybrid.discord.utility.Utils;
 
 import javax.annotation.Nonnull;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ChatLogs extends ListenerAdapter {
 
     @Override @SneakyThrows
     public void onGuildMessageReceived(@Nonnull GuildMessageReceivedEvent event) {
-        if (!shouldLog(event.getChannel())) return;
+        if (!Utils.hasChatLogging(event.getChannel())) return;
         if (event.getAuthor().isSystem()) return;
         if (event.getAuthor().isBot()) return;
 
@@ -54,20 +54,6 @@ public class ChatLogs extends ListenerAdapter {
         if (files.length >= 5) {
             Arrays.stream(files).findFirst().get().delete();
         }
-    }
-
-    public boolean shouldLog(TextChannel textChannel){
-        ArrayList<String> channels = new ArrayList<>(
-                DiscordApplication.getInstance().getConfig().getStringList("channelsToLog")
-        );
-
-        for (String s : channels) {
-            if (textChannel.getName().contains(s)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }
 

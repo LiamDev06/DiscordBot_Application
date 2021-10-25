@@ -1,4 +1,5 @@
 net\hybrid\discord\DiscordApplication.class
+net\hybrid\discord\commands\ChannelOptionsCommand.class
 net\hybrid\discord\commands\InformationEmbedCommand.class
 net\hybrid\discord\commands\ResetChatCommand.class
 net\hybrid\discord\filters\ChatLogs.class

@@ -25,6 +25,14 @@ public class ResetChatCommand extends BotCommand {
                 && !Utils.hasRole(member, DiscordRole.DISCORD_MANAGER)
                 && !Utils.hasRole(member, DiscordRole.ADMIN)) return;
 
+        if (Utils.isPermanentChannel(channel)) {
+            EmbedBuilder embed = new EmbedBuilder();
+            embed.setColor(Color.RED);
+            embed.appendDescription("This is a permanent channel and therefore cannot be reset!");
+            channel.sendMessage(embed.build()).queue();
+            return;
+        }
+
         channel.sendMessage(":desktop: Resetting...").queue();
         channel.createCopy().setPosition(channel.getPosition()).queueAfter(2, TimeUnit.SECONDS);
         channel.delete().queueAfter(2, TimeUnit.SECONDS);

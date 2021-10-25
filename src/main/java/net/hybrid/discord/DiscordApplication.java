@@ -11,6 +11,7 @@ import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import net.hybrid.discord.commands.ClearMessageCommand;
 import net.hybrid.discord.commands.InformationEmbedCommand;
 import net.hybrid.discord.commands.ResetChatCommand;
+import net.hybrid.discord.commands.ChannelOptionsCommand;
 import net.hybrid.discord.filters.BlacklistedWordsFilter;
 import net.hybrid.discord.filters.ChatActionEvents;
 import net.hybrid.discord.filters.ChatLogs;
@@ -68,6 +69,7 @@ public class DiscordApplication extends JavaPlugin {
         new ResetChatCommand();
         new ClearMessageCommand();
         new InformationEmbedCommand();
+        new ChannelOptionsCommand();
 
         saveDefaultConfig();
         getConfig().options().copyDefaults(true);

@@ -1,9 +1,6 @@
 package net.hybrid.discord.utility;
 
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.*;
 import net.hybrid.discord.DiscordApplication;
 
 import java.util.ArrayList;
@@ -12,15 +9,6 @@ import java.util.List;
 public class Utils {
 
     private static final Guild guild = DiscordApplication.getInstance().getDiscordServer();
-
-    public static boolean hasRole(Member member, String roleName) {
-        for (int i=0; i<member.getRoles().size(); i++){
-            if (roleName.equals(member.getRoles().get(i).getName())){
-                return true;
-            }
-        }
-        return false;
-    }
 
     public static boolean hasRole(Member member, Role discordRole) {
         for (int i=0; i<member.getRoles().size(); i++){
@@ -40,12 +28,53 @@ public class Utils {
 
     public static boolean isStaffChannel(TextChannel channel) {
         try {
-            return channel.getParent().getName().equalsIgnoreCase("logs")
-                    || channel.getParent().getName().equalsIgnoreCase("teams")
-                    || channel.getParent().getName().equalsIgnoreCase("staff");
+            assert DiscordRole.BOT_STAFF_CHANNEL != null;
+
+            return channel.getPermissionOverride(DiscordRole.BOT_STAFF_CHANNEL).isRoleOverride();
         } catch (NullPointerException exception) {
             return false;
         }
+    }
+
+    public static boolean hasChatLogging(TextChannel channel) {
+        try {
+            assert DiscordRole.BOT_NO_CHAT_LOGGING != null;
+
+            return !channel.getPermissionOverride(DiscordRole.BOT_NO_CHAT_LOGGING).isRoleOverride();
+        } catch (NullPointerException exception) {
+            return true;
+        }
+    }
+
+    public static boolean hasChatFilter(TextChannel channel) {
+        try {
+            assert DiscordRole.BOT_NO_CHAT_FILTER != null;
+
+            return !channel.getPermissionOverride(DiscordRole.BOT_NO_CHAT_FILTER).isRoleOverride();
+        } catch (NullPointerException exception) {
+            return true;
+        }
+    }
+    public static boolean isPermanentChannel(TextChannel channel) {
+        try {
+            assert DiscordRole.BOT_PERMANENT_CHANNEL != null;
+
+            return channel.getPermissionOverride(DiscordRole.BOT_PERMANENT_CHANNEL).isRoleOverride();
+        } catch (NullPointerException exception) {
+            return false;
+        }
+    }
+
+    public static User getUserFromID(String userId) {
+        return DiscordApplication.getInstance().getJda().retrieveUserById(userId).complete();
+    }
+
+    public static User getUserFromID(long userId) {
+        return DiscordApplication.getInstance().getJda().retrieveUserById(userId).complete();
+    }
+
+    public static Member getUserFromMember(User user) {
+        return DiscordApplication.getInstance().getDiscordServer().getMember(user);
     }
 
     public static TextChannel getStaffCommandsChannel() {

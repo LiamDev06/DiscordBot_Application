@@ -20,6 +20,7 @@ public class DiscordRole {
     public static final Role DIAMOND = guild.getRoleById(891095675259998239L);
     public static final Role IRON = guild.getRoleById(880208064194691147L);
     public static final Role MEMBER = guild.getRoleById(891099834872897566L);
+    public static final Role MEMBER_MUTED = guild.getRoleById(901904185430249473L);
     public static final Role LINKED = guild.getRoleById(891097398066167829L);
     public static final Role STAFF = guild.getRoleById(880208064194691145L);
     public static final Role MUSIC_DJ = guild.getRoleById(891102994895077396L);
@@ -27,4 +28,9 @@ public class DiscordRole {
     public static final Role PING_FREQUENT_UPDATES = guild.getRoleById(898232378743455754L);
     public static final Role PING_EVENTS = guild.getRoleById(882764493933936670L);
     public static final Role PING_SURVIVAL_UPDATES = guild.getRoleById(882764530093002842L);
+    public static final Role BOT_NO_CHAT_FILTER = guild.getRoleById(901904655213285457L);
+    public static final Role BOT_NO_CHAT_LOGGING = guild.getRoleById(901904398211485756L);
+    public static final Role BOT_PERMANENT_CHANNEL = guild.getRoleById(901904860822274159L);
+    public static final Role BOT_STAFF_CHANNEL = guild.getRoleById(901918747500101642L);
+
 }
