@@ -16,6 +16,7 @@ public class RolesReaction extends ListenerAdapter {
     @Override
     public void onGuildMessageReceived(@Nonnull GuildMessageReceivedEvent event) {
         Permission permission = Permission.ADMINISTRATOR;
+        if (event.getMember() == null) return;
 
         if (event.getMember().hasPermission(permission)
                 && event.getMessage().getContentRaw().equalsIgnoreCase("!reactionrolesadd")) {
