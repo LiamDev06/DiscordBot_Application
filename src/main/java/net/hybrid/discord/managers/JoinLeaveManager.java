@@ -34,8 +34,7 @@ public class JoinLeaveManager extends ListenerAdapter {
         join.appendDescription("This is the community discord for the Hybrid Minecraft server, and we strive to bring the community together by " +
                 "hosting events and other fun activities!\n\n");
         join.appendDescription(":green_circle: **Read the rules at** <#" + 880208064211484691L + "> \n");
-        join.appendDescription(":newspaper: **View the latest announcements at** <#" + 880208195845509190L + "> \n");
-        join.appendDescription(":loudspeaker: **Verify yourself to gain server access in** <#" + 891100362809942026L + "> \n");
+        join.appendDescription(":newspaper: **View the latest announcements at** <#" + 880208195845509190L + ">");
 
          event.getGuild().getTextChannelById(880208064513445918L)
                  .sendMessage("<@" + event.getUser().getId() + ">").queue();

@@ -17,6 +17,9 @@ import net.hybrid.discord.filters.ChatActionEvents;
 import net.hybrid.discord.filters.ChatLogs;
 import net.hybrid.discord.managers.JoinLeaveManager;
 import net.hybrid.discord.managers.RolesReaction;
+import net.hybrid.discord.systems.BugReports;
+import net.hybrid.discord.systems.Suggestions;
+import net.hybrid.discord.systems.Support;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -41,7 +44,7 @@ public class DiscordApplication extends JavaPlugin {
 
         try {
             this.jda = JDABuilder.createDefault(this.TOKEN)
-                    .setActivity(Activity.playing("Hybrid Network"))
+                    .setActivity(Activity.playing("hybridplays.com"))
                     .setMemberCachePolicy(MemberCachePolicy.ALL)
 
                     .enableIntents(GatewayIntent.GUILD_MEMBERS)
@@ -103,6 +106,9 @@ public class DiscordApplication extends JavaPlugin {
         jda.addEventListener(new ChatLogs());
         jda.addEventListener(new JoinLeaveManager());
         jda.addEventListener(new RolesReaction());
+        jda.addEventListener(new Suggestions());
+        jda.addEventListener(new Support());
+        jda.addEventListener(new BugReports());
     }
 
     public static DiscordApplication getInstance(){

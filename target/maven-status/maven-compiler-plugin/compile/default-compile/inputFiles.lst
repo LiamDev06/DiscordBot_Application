@@ -1,4 +1,5 @@
 C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\managers\RolesReaction.java
+C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\systems\Support.java
 C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\utility\Utils.java
 C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\DiscordApplication.java
 C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\commands\ResetChatCommand.java
@@ -10,6 +11,8 @@ C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\
 C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\com\github\liamhbest0608\CommandAPI.java
 C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\commands\InformationEmbedCommand.java
 C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\commands\ClearMessageCommand.java
+C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\systems\Suggestions.java
+C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\systems\BugReports.java
 C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\filters\BlacklistedWordsFilter.java
 C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\managers\JoinLeaveManager.java
 C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\utility\ChatAction.java

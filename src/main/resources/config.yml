@@ -5,3 +5,6 @@ channelsToLog:
   - minecraft-talk
   - music-chat
   - bot-testing
+id:
+  suggestions: 0001
+  ticket: 1

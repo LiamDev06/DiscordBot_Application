@@ -3,8 +3,11 @@ net\hybrid\discord\commands\ChannelOptionsCommand.class
 net\hybrid\discord\commands\InformationEmbedCommand.class
 net\hybrid\discord\commands\ResetChatCommand.class
 net\hybrid\discord\filters\ChatLogs.class
+net\hybrid\discord\systems\BugReports.class
 com\github\liamhbest0608\BotCommand.class
 net\hybrid\discord\managers\JoinLeaveManager.class
+net\hybrid\discord\systems\Suggestions.class
+net\hybrid\discord\systems\Support.class
 net\hybrid\discord\filters\ChatActionEvents.class
 net\hybrid\discord\commands\ClearMessageCommand.class
 net\hybrid\discord\utility\ChatAction.class
