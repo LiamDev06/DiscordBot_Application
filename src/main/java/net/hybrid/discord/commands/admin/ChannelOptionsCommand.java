@@ -1,4 +1,4 @@
-package net.hybrid.discord.commands;
+package net.hybrid.discord.commands.admin;
 
 import com.github.liamhbest0608.BotCommand;
 import net.dv8tion.jda.api.EmbedBuilder;

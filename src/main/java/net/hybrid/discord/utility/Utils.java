@@ -134,17 +134,7 @@ public class Utils {
     }
 
     public static TextChannel getUserReportsChannel() {
-        final List<TextChannel> list = new ArrayList<>(guild.getTextChannelsByName("reports", true));
-        TextChannel value = null;
-
-        for (TextChannel channel : list) {
-            if (channel.getParent().getName().contains("LOGS")) {
-                value = channel;
-                break;
-            }
-        }
-
-        return value;
+        return guild.getTextChannelById(891088347936735262L);
     }
 
     public static TextChannel liamDevDebugChannel() {

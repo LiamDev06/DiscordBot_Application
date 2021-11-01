@@ -9,12 +9,17 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import net.hybrid.discord.commands.*;
+import net.hybrid.discord.commands.admin.ChannelOptionsCommand;
+import net.hybrid.discord.commands.admin.InformationEmbedCommand;
+import net.hybrid.discord.commands.admin.ResetChatCommand;
+import net.hybrid.discord.commands.staff.ClearMessageCommand;
 import net.hybrid.discord.filters.BlacklistedWordsFilter;
 import net.hybrid.discord.filters.ChatActionEvents;
 import net.hybrid.discord.filters.ChatLogs;
 import net.hybrid.discord.managers.JoinLeaveManager;
 import net.hybrid.discord.managers.RolesReaction;
 import net.hybrid.discord.managers.VoiceLoungeManager;
+import net.hybrid.discord.moderation.ReportReactionListener;
 import net.hybrid.discord.systems.BugReports;
 import net.hybrid.discord.systems.Suggestions;
 import net.hybrid.discord.systems.Support;
@@ -72,6 +77,7 @@ public class DiscordApplication extends JavaPlugin {
         new InformationEmbedCommand();
         new ChannelOptionsCommand();
         new VoicePartyCommand();
+        new ReportCommand();
 
         saveDefaultConfig();
         getConfig().options().copyDefaults(true);
@@ -109,6 +115,7 @@ public class DiscordApplication extends JavaPlugin {
         jda.addEventListener(new Support());
         jda.addEventListener(new BugReports());
         jda.addEventListener(new VoiceLoungeManager());
+        jda.addEventListener(new ReportReactionListener());
     }
 
     public static DiscordApplication getInstance(){

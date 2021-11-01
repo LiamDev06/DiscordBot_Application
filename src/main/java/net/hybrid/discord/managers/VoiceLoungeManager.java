@@ -65,6 +65,8 @@ public class VoiceLoungeManager extends ListenerAdapter {
             return;
         }
 
+        if (channel.getName().contains("'s Channel")) return;
+
         String id = channel.getName().replace("Voice Lounge ", "").replace("[#", "").replace("]", "");
 
         if (!this.config.getBoolean("hasTextChannel.voiceLounge" + id)) {
@@ -129,7 +131,10 @@ public class VoiceLoungeManager extends ListenerAdapter {
         }
 
         String id = channel.getName().replace("Voice Lounge ", "").replace("[#", "").replace("]", "");
-        TextChannel textChannel = event.getGuild().getTextChannelsByName("voicelounge" + id + "-text", true).get(0);
+        TextChannel textChannel;
+        try {
+            textChannel = event.getGuild().getTextChannelsByName("voicelounge" + id + "-text", true).get(0);
+        } catch (IndexOutOfBoundsException exception) { return; }
 
         for (PermissionOverride override : textChannel.getMemberPermissionOverrides()) {
             if (override.isMemberOverride() && override.getMember().getId().equalsIgnoreCase(event.getMember().getId())) {
