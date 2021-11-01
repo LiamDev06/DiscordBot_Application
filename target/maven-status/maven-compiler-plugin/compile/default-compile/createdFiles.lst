@@ -10,9 +10,11 @@ net\hybrid\discord\systems\Suggestions.class
 net\hybrid\discord\systems\Support.class
 net\hybrid\discord\filters\ChatActionEvents.class
 net\hybrid\discord\commands\ClearMessageCommand.class
+net\hybrid\discord\managers\VoiceLoungeManager.class
 net\hybrid\discord\utility\ChatAction.class
 net\hybrid\discord\utility\DiscordRole.class
 com\github\liamhbest0608\CommandAPI.class
 net\hybrid\discord\filters\BlacklistedWordsFilter.class
+net\hybrid\discord\commands\VoicePartyCommand.class
 net\hybrid\discord\utility\Utils.class
 net\hybrid\discord\managers\RolesReaction.class

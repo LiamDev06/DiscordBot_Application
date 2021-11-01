@@ -55,7 +55,7 @@ public class Utils {
             return true;
         }
     }
-    public static boolean isPermanentChannel(TextChannel channel) {
+    public static boolean isPermanentChannel(GuildChannel channel) {
         try {
             assert DiscordRole.BOT_PERMANENT_CHANNEL != null;
 
@@ -139,6 +139,20 @@ public class Utils {
 
         for (TextChannel channel : list) {
             if (channel.getParent().getName().contains("LOGS")) {
+                value = channel;
+                break;
+            }
+        }
+
+        return value;
+    }
+
+    public static TextChannel liamDevDebugChannel() {
+        final List<TextChannel> list = new ArrayList<>(guild.getTextChannelsByName("liam-dev", true));
+        TextChannel value = null;
+
+        for (TextChannel channel : list) {
+            if (channel.getParent().getName().contains("Owner Lounge")) {
                 value = channel;
                 break;
             }
