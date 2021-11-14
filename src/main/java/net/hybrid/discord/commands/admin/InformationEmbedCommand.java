@@ -43,7 +43,7 @@ public class InformationEmbedCommand extends BotCommand {
         discordRules.appendDescription("**1** - Harassment, discrimination, hate speech or abuse is strictly not allowed."+newLine+newLine);
         discordRules.appendDescription("**2** - No excessive swearing or spamming. Just don't bypass the filter :shrug:."+newLine+newLine);
         discordRules.appendDescription("**3** - Respect all users, players and staff."+newLine+newLine);
-        discordRules.appendDescription("**4** - Inappropriate profile pictures, statuses or game activities are not allowed."+newLine+newLine);
+        discordRules.appendDescription("**4** - Inappropriate profile pictures, statuses, game activities or usernames are not allowed."+newLine+newLine);
         discordRules.appendDescription("**5** - Avoid pinging staff or users that currently obtain YouTuber, Twitch Streamer or Partner rank. Only ping them for emergencies!"+newLine+newLine);
         discordRules.appendDescription("**6** - Only send “clean” and appropriate links and files."+newLine+newLine);
         discordRules.appendDescription("**7** - Do not advertise your social media or other similar communities."+newLine+newLine);
@@ -67,7 +67,8 @@ public class InformationEmbedCommand extends BotCommand {
         serverRules.appendDescription("**5** - Abusing glitches or exploits **intentionally** is prohibited."+newLine+newLine);
         serverRules.appendDescription("**6** - No sharing of personal information, not yours or someone else's."+newLine+newLine);
         serverRules.appendDescription("**7** - No excessive swearing or spamming. Just don't bypass our filter!"+newLine+newLine);
-        serverRules.appendDescription("**8** - Game sabotaging is not allowed! This includes things like cross teaming or trying to scam someone in Survival."+newLine+newLine+newLine);
+        serverRules.appendDescription("**8** - Game sabotaging is not allowed! This includes things like cross teaming or trying to scam someone in Survival."+newLine+newLine);
+        serverRules.appendDescription("**9** - Inappropriate usernames, capes or skins are not allowed."+newLine+newLine+newLine);
         serverRules.appendDescription("Remember to always report rule breakers. To report a minecraft rule breaker, use `/report <player> <reason>` in-game.");
 
         EmbedBuilder general = new EmbedBuilder();
