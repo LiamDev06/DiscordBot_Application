@@ -15,6 +15,7 @@ net\hybrid\discord\systems\BugReports.class
 net\hybrid\discord\commands\admin\InformationEmbedCommand.class
 net\hybrid\discord\moderation\ReportLogger.class
 net\hybrid\discord\moderation\ReportReactionListener.class
+net\hybrid\discord\commands\admin\DailyBriefCommand.class
 net\hybrid\discord\managers\VoiceLoungeManager.class
 net\hybrid\discord\commands\admin\ChannelOptionsCommand.class
 net\hybrid\discord\utility\DiscordRole.class
