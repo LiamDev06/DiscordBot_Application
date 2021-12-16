@@ -38,6 +38,7 @@ public class VoiceLoungeManager extends ListenerAdapter {
                     .addPermissionOverride(DiscordRole.ADMIN, EnumSet.of(Permission.VIEW_CHANNEL), null)
                     .addPermissionOverride(DiscordRole.OWNER, EnumSet.of(Permission.VIEW_CHANNEL), null)
 
+                    .reason("Voice party created")
                     .complete();
 
             event.getGuild().moveVoiceMember(event.getMember(), target).queue();
@@ -56,10 +57,11 @@ public class VoiceLoungeManager extends ListenerAdapter {
                     .addPermissionOverride(DiscordRole.ADMIN, EnumSet.of(Permission.VIEW_CHANNEL), null)
                     .addPermissionOverride(DiscordRole.OWNER, EnumSet.of(Permission.VIEW_CHANNEL), null)
 
+                    .reason("Auto-generated text channel for voice party")
                     .complete();
 
-            targetText.sendMessage("<@" + event.getMember().getId() + ">").queue();
-            targetText.sendMessage("**Welcome to your VC text channel!**\nThis is an auto-generated channel that everyone in your voice party will have access to.\n\n" +
+            targetText.sendMessage("<@" + event.getMember().getId() + ">\n" +
+                    "**Welcome to your VC text channel!**\nThis is an auto-generated channel that everyone in your voice party will have access to.\n\n" +
                     "➤ Invite members to your voice party with **!vcparty invite <user>**. Remove their access by doing **!vcparty remove <user>**.\n" +
                     "➤ The voice party will automatically be disbanded when the voice party creator leaves the VC").queue();
             return;
@@ -84,19 +86,21 @@ public class VoiceLoungeManager extends ListenerAdapter {
                     .addPermissionOverride(DiscordRole.ADMIN, EnumSet.of(Permission.VIEW_CHANNEL), null)
                     .addPermissionOverride(DiscordRole.OWNER, EnumSet.of(Permission.VIEW_CHANNEL), null)
 
+                    .reason("Auto-generated voice text channel for channel " + channel.getName())
                     .complete();
 
             this.config.set("hasTextChannel.voiceLounge" + id, true);
             DiscordApplication.getInstance().saveConfig();
 
             textChannel.sendMessage("**Welcome to your VC text channel!**\nThis is an auto-generated channel that everyone in the VC '**" + channel.getName() + "**' will have access to.\n" +
-                    "This channel will automatically be disbanded when the VC is empty.").queue();
+                    "This channel will automatically be disbanded if the VC is empty.").queue();
         } else {
 
             TextChannel textChannel = event.getGuild().getTextChannelsByName("voicelounge" + id + "-text", true).get(0);
             if (textChannel != null) {
                 textChannel.getManager().putMemberPermissionOverride(event.getMember().getIdLong(),
-                        EnumSet.of(Permission.VIEW_CHANNEL), null).queue();
+                        EnumSet.of(Permission.VIEW_CHANNEL), null)
+                        .reason("Member added to voice lounge").queue();
             }
 
         }
@@ -109,7 +113,9 @@ public class VoiceLoungeManager extends ListenerAdapter {
 
         if (channel.getName().contains(event.getMember().getEffectiveName()) &&
             channel.getName().contains("Channel")) {
-            channel.delete().queue();
+            if (!Utils.isPermanentChannel(channel)) {
+                channel.delete().queue();
+            }
 
             for (GuildChannel guildChannel : event.getGuild().getCategoryById(880208064702185525L).getChannels()) {
                 if (guildChannel instanceof TextChannel) {
@@ -119,9 +125,8 @@ public class VoiceLoungeManager extends ListenerAdapter {
                             textTarget.getName().endsWith("-vctext")) {
 
                         if (!Utils.isPermanentChannel(textTarget)) {
-                            textTarget.delete().queue();
+                            textTarget.delete().reason("VC text deleted due to no more members in the target voice channel").queue();
                         }
-
                         break;
                     }
                 }
@@ -139,13 +144,14 @@ public class VoiceLoungeManager extends ListenerAdapter {
         for (PermissionOverride override : textChannel.getMemberPermissionOverrides()) {
             if (override.isMemberOverride() && override.getMember().getId().equalsIgnoreCase(event.getMember().getId())) {
                 textChannel.getManager()
-                        .removePermissionOverride(override.getIdLong()).queue();
+                        .removePermissionOverride(override.getIdLong())
+                        .reason("Removed from VC text channel due to leaving target voice channel").queue();
             }
         }
 
         if (channel.getMembers().size() == 0) {
             if (!Utils.isPermanentChannel(textChannel)) {
-                textChannel.delete().queue();
+                textChannel.delete().reason("VC text deleted due to no more members in the target voice channel").queue();
                 config.set("hasTextChannel.voiceLounge" + id, false);
                 DiscordApplication.getInstance().saveConfig();
             }

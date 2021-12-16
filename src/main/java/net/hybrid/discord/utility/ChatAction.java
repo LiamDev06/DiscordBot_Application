@@ -2,12 +2,18 @@ package net.hybrid.discord.utility;
 
 public enum ChatAction {
 
-    BLACKLISTED,
-    DELETION,
-    EDIT;
+    BLACKLISTED("BLACKLISTED"),
+    DELETION("DELETION"),
+    EDIT("EDIT"),
+    MESSAGE_LENGTH("MESSAGE LENGTH");
 
-    ChatAction() {
+    private final String name;
 
+    ChatAction(String name) {
+        this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
 }

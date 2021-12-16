@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 public class ResetChatCommand extends BotCommand {
 
     public ResetChatCommand(){
-        super("resetchat");
+        super("resetchannel");
     }
 
     @Override
@@ -35,7 +35,7 @@ public class ResetChatCommand extends BotCommand {
 
         channel.sendMessage(":desktop: Resetting...").queue();
         channel.createCopy().setPosition(channel.getPosition()).queueAfter(2, TimeUnit.SECONDS);
-        channel.delete().queueAfter(2, TimeUnit.SECONDS);
+        channel.delete().reason("Channel deletion requested by " + member.getEffectiveName() + " via !resetchannel").queueAfter(2, TimeUnit.SECONDS);
 
         EmbedBuilder embed = new EmbedBuilder();
         embed.setColor(Color.ORANGE);

@@ -52,7 +52,7 @@ public class BlacklistedWordsFilter extends ListenerAdapter {
 
         if (blacklist) {
             ChatActionEvents.shouldNotSendDeleted.add(event.getMessageId());
-            event.getMessage().delete().queue();
+            event.getMessage().delete().reason("Contained blacklisted words").queue();
 
             EmbedBuilder embed = new EmbedBuilder();
             embed.setColor(Color.RED);

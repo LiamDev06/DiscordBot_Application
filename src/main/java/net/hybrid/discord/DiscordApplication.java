@@ -10,13 +10,13 @@ import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import net.hybrid.discord.commands.*;
 import net.hybrid.discord.commands.admin.ChannelOptionsCommand;
-import net.hybrid.discord.commands.admin.DailyBriefCommand;
 import net.hybrid.discord.commands.admin.InformationEmbedCommand;
 import net.hybrid.discord.commands.admin.ResetChatCommand;
 import net.hybrid.discord.commands.staff.ClearMessageCommand;
 import net.hybrid.discord.filters.BlacklistedWordsFilter;
 import net.hybrid.discord.filters.ChatActionEvents;
 import net.hybrid.discord.filters.ChatLogs;
+import net.hybrid.discord.filters.MessageLengthFilter;
 import net.hybrid.discord.managers.JoinLeaveManager;
 import net.hybrid.discord.managers.RolesReaction;
 import net.hybrid.discord.managers.VoiceLoungeManager;
@@ -79,7 +79,6 @@ public class DiscordApplication extends JavaPlugin {
         new ChannelOptionsCommand();
         new VoicePartyCommand();
         new ReportCommand();
-        new DailyBriefCommand();
 
         saveDefaultConfig();
         getConfig().options().copyDefaults(true);
@@ -118,6 +117,7 @@ public class DiscordApplication extends JavaPlugin {
         jda.addEventListener(new BugReports());
         jda.addEventListener(new VoiceLoungeManager());
         jda.addEventListener(new ReportReactionListener());
+        jda.addEventListener(new MessageLengthFilter());
     }
 
     public static DiscordApplication getInstance(){

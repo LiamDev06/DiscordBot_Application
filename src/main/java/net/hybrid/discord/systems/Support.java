@@ -32,7 +32,7 @@ public class Support extends ListenerAdapter {
 
         if (event.getMember().hasPermission(permission)
                 && event.getMessage().getContentRaw().equalsIgnoreCase("!supportembedadd")) {
-            event.getMessage().delete().queue();
+            event.getMessage().delete().reason("Command message").queue();
 
             EmbedBuilder embed = new EmbedBuilder();
             embed.setColor(Color.ORANGE);
@@ -48,7 +48,7 @@ public class Support extends ListenerAdapter {
         if (event.getMessage().getContentRaw().equalsIgnoreCase("!closeticket")) {
             if (event.getChannel().getName().startsWith("support-")) {
                 ChatActionEvents.shouldNotSendDeleted.add(event.getMessageId());
-                event.getMessage().delete().queue();
+                event.getMessage().delete().reason("command message").queue();
 
                 if (!Utils.isStaff(member)) {
                     EmbedBuilder embed = new EmbedBuilder();
@@ -61,9 +61,10 @@ public class Support extends ListenerAdapter {
                 for (PermissionOverride override : event.getChannel().getMemberPermissionOverrides()) {
                     if (override.isMemberOverride()) {
                         event.getChannel().getManager()
-                                .removePermissionOverride(override.getIdLong()).queue();
+                                .removePermissionOverride(override.getIdLong())
+                                .reason("Support ticket closed").queue();
 
-                        override.delete().queue();
+                        override.delete().reason("Support ticket closed").queue();
                     }
                 }
 
@@ -79,14 +80,15 @@ public class Support extends ListenerAdapter {
 
                 event.getChannel().getManager().setName(
                         "tclosed-" + event.getChannel().getName().replace("support-", "")
-                ).queueAfter(1, TimeUnit.SECONDS);
+                ).reason("Support ticket closed").queueAfter(1, TimeUnit.SECONDS);
 
-                event.getChannel().getManager().setTopic("This ticket is closed.").queue();
+                event.getChannel().getManager().setTopic("This ticket is closed.")
+                        .reason("Support ticket closed").queue();
             }
 
             if (event.getChannel().getName().startsWith("tclosed-")) {
                 ChatActionEvents.shouldNotSendDeleted.add(event.getMessageId());
-                event.getMessage().delete().queue();
+                event.getMessage().delete().reason("Command message").queue();
 
                 if (!Utils.isStaff(member)) {
                     EmbedBuilder embed = new EmbedBuilder();
@@ -106,7 +108,7 @@ public class Support extends ListenerAdapter {
         if (event.getMessage().getContentRaw().equalsIgnoreCase("!deleteticket")) {
             if (event.getChannel().getName().startsWith("support-") || event.getChannel().getName().startsWith("tclosed-")) {
                 ChatActionEvents.shouldNotSendDeleted.add(event.getMessageId());
-                event.getMessage().delete().queue();
+                event.getMessage().delete().reason("Command message").queue();
 
                 if (!Utils.isStaff(member)) {
                     EmbedBuilder embed = new EmbedBuilder();
@@ -116,11 +118,18 @@ public class Support extends ListenerAdapter {
                     return;
                 }
 
+                if (Utils.isPermanentChannel(event.getChannel())) {
+                    event.getChannel().sendMessage(new EmbedBuilder().setColor(Color.RED).appendDescription(
+                            "This channel is marked as a permanent one and therefore cannot be deleted!"
+                    ).build()).queue();
+                    return;
+                }
+
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setColor(Color.GREEN);
                 embed.setAuthor("Deleting ticket...");
                 event.getChannel().sendMessage(embed.build())
-                        .queue(message -> event.getChannel().delete()
+                        .queue(message -> event.getChannel().delete().reason("Support ticket deleted")
                                 .queueAfter(2, TimeUnit.SECONDS));
             }
         }
@@ -155,6 +164,8 @@ public class Support extends ListenerAdapter {
 
                     .addPermissionOverride(DiscordRole.BOT_NO_CHAT_FILTER, EnumSet.of(Permission.VIEW_CHANNEL), null)
                     .addPermissionOverride(DiscordRole.BOT_NO_CHAT_LOGGING, EnumSet.of(Permission.VIEW_CHANNEL), null)
+
+                    .reason("Support ticket opened by " + event.getMember().getEffectiveName())
                     .complete();
             channel.sendMessage("<@" + event.getUser().getId() + ">").queue();
 

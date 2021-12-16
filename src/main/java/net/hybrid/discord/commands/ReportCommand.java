@@ -85,7 +85,7 @@ public class ReportCommand extends BotCommand {
                 getLogDate());
         ReportLogger.logReportFrontend(against, member, reason.toString().trim(), channel, getLogDate());
 
-        message.delete().queue();
+        message.delete().reason("Message deleted from !report command").queue();
 
         EmbedBuilder embed = new EmbedBuilder().setColor(Color.GREEN).setTitle("Report Complete");
         embed.appendDescription("Thank you for reporting **" + against.getEffectiveName() + "**! This report has been logged and will be review by our staff team.");

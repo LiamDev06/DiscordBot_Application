@@ -4,6 +4,7 @@ import com.github.liamhbest0608.BotCommand;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
 import net.hybrid.discord.DiscordApplication;
+import net.hybrid.discord.utility.Utils;
 
 import java.util.EnumSet;
 
@@ -22,29 +23,46 @@ public class VoicePartyCommand extends BotCommand {
                 return;
             }
 
-            if (args[1].equalsIgnoreCase("invite")) {
+            if (args[1].equalsIgnoreCase("invite") || args[1].equalsIgnoreCase("add")) {
                 if (args.length >= 3) {
-                    String invite = args[2];
+                    StringBuilder inviteBuilder = new StringBuilder();
                     boolean found = false;
 
+                    int count = 0;
+                    for (String s : args) {
+                        if (count > 1) {
+                            inviteBuilder.append(s).append(" ");
+                        }
+
+                        count++;
+                    }
+
+                    String invite = inviteBuilder.toString().trim();
+
                     for (Member target : DiscordApplication.getInstance().getDiscordServer().getMembers()) {
-                        if (target.getEffectiveName().equalsIgnoreCase(invite)) {
+                        if (target.getEffectiveName().equalsIgnoreCase(invite) || target.getUser().getName().equalsIgnoreCase(invite)) {
                             found = true;
+                            if (member.getIdLong() == target.getIdLong()) {
+                                channel.sendMessage("**CANNOT INVITE!** You cannot invite yourself to the voice party - you are already here!").queue();
+                                return;
+                            }
+
                             if (isAlreadyMember(channel, target)) {
-                                channel.sendMessage("**USER ALREADY INVITED!** The user " + target.getEffectiveName() + " is already a member of this voice party!").queue();
+                                channel.sendMessage("**USER ALREADY MEMBER!** The user " + target.getEffectiveName() + " is already a member of this voice party!").queue();
                                 return;
                             }
 
                             channel.getManager().putMemberPermissionOverride(
                                     target.getIdLong(), EnumSet.of(Permission.VIEW_CHANNEL), null
-                            ).queue();
+                            ).reason("Voice party invitation from " + member.getEffectiveName() + " to " + target.getEffectiveName()).queue();
 
                             for (GuildChannel targetChannel : DiscordApplication.getInstance().getDiscordServer().getCategoryById(880208064702185525L).getChannels()) {
                                 if (targetChannel instanceof VoiceChannel) {
                                     if (targetChannel.getName().contains("Channel") && targetChannel.getName().contains(member.getEffectiveName())) {
                                         VoiceChannel voice = (VoiceChannel) targetChannel;
                                         voice.getManager().putMemberPermissionOverride(target.getIdLong(),
-                                                EnumSet.of(Permission.VIEW_CHANNEL), null).queue();
+                                                EnumSet.of(Permission.VIEW_CHANNEL), null)
+                                                .reason("Voice party invitation from " + member.getEffectiveName() + " to " + target.getEffectiveName()).queue();
                                         break;
                                     }
                                 }
@@ -67,27 +85,49 @@ public class VoicePartyCommand extends BotCommand {
 
             } else if (args[1].equalsIgnoreCase("remove")) {
                 if (args.length >= 3) {
-                    String invite = args[2];
+                    StringBuilder inviteBuilder = new StringBuilder();
                     boolean found = false;
 
+                    int count = 0;
+                    for (String s : args) {
+                        if (count > 1) {
+                            inviteBuilder.append(s).append(" ");
+                        }
+
+                        count++;
+                    }
+
+                    String invite = inviteBuilder.toString().trim();
+
                     for (Member target : DiscordApplication.getInstance().getDiscordServer().getMembers()) {
-                        if (target.getEffectiveName().equalsIgnoreCase(invite)) {
+                        if (target.getEffectiveName().equalsIgnoreCase(invite) || target.getUser().getName().equalsIgnoreCase(invite)) {
                             found = true;
                             if (!isAlreadyMember(channel, target)) {
                                 channel.sendMessage("**USER IS NOT A MEMBER!** The user " + target.getEffectiveName() + " is already not a member of this party, and therefore cannot be removed!").queue();
                                 return;
                             }
 
+                            if (member.getIdLong() == target.getIdLong()) {
+                                channel.sendMessage("**CANNOT REMOVE!** You cannot remove yourself from the voice party!\nIf you want to disband the party, please leave the party voice channel.").queue();
+                                return;
+                            }
+
+                            if (Utils.isStaff(target)) {
+                                channel.sendMessage("**CANNOT REMOVE!** This member cannot be removed from the voice party!").queue();
+                                return;
+                            }
+
                             channel.getManager().putMemberPermissionOverride(
                                     target.getIdLong(), null, EnumSet.of(Permission.VIEW_CHANNEL)
-                            ).queue();
+                            ).reason("Voice party leader " + member.getEffectiveName() + " removed " + target.getEffectiveName() + " from their voice party").queue();
 
                             for (GuildChannel targetChannel : DiscordApplication.getInstance().getDiscordServer().getCategoryById(880208064702185525L).getChannels()) {
                                 if (targetChannel instanceof VoiceChannel) {
                                     if (targetChannel.getName().contains("Channel") && targetChannel.getName().contains(member.getEffectiveName())) {
                                         VoiceChannel voice = (VoiceChannel) targetChannel;
                                         voice.getManager().putMemberPermissionOverride(target.getIdLong(),
-                                                null, EnumSet.of(Permission.VIEW_CHANNEL)).queue();
+                                                null, EnumSet.of(Permission.VIEW_CHANNEL))
+                                                .reason("Voice party leader " + member.getEffectiveName() + " removed " + target.getEffectiveName() + " from their voice party").queue();
                                         break;
                                     }
                                 }

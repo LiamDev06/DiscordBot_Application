@@ -10,11 +10,11 @@ C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\
 C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\moderation\ReportReactionListener.java
 C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\utility\ChatAction.java
 C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\commands\VoicePartyCommand.java
+C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\filters\MessageLengthFilter.java
 C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\managers\RolesReaction.java
 C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\systems\Support.java
 C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\commands\admin\ChannelOptionsCommand.java
 C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\DiscordApplication.java
-C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\commands\admin\DailyBriefCommand.java
 C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\commands\admin\InformationEmbedCommand.java
 C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\managers\VoiceLoungeManager.java
 C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\utility\DiscordRole.java

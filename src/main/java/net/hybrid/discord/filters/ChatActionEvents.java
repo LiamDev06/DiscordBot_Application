@@ -100,7 +100,7 @@ public class ChatActionEvents extends ListenerAdapter {
 
             if (blacklist) {
                 shouldNotSendDeleted.add(event.getMessageId());
-                event.getMessage().delete().queue();
+                event.getMessage().delete().reason("Contained blacklisted words").queue();
 
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setColor(Color.RED);

@@ -29,7 +29,7 @@ public class Suggestions extends ListenerAdapter {
 
         if (event.getMember().hasPermission(permission)
                 && event.getMessage().getContentRaw().equalsIgnoreCase("!suggestionembedadd")) {
-            event.getMessage().delete().queue();
+            event.getMessage().delete().reason("Command message").queue();
 
             EmbedBuilder embed = new EmbedBuilder();
             embed.setColor(Color.MAGENTA);
@@ -45,7 +45,7 @@ public class Suggestions extends ListenerAdapter {
         if (event.getMessage().getContentRaw().equalsIgnoreCase("!closesuggestion")) {
             if (event.getChannel().getName().startsWith("suggestion-")) {
                 ChatActionEvents.shouldNotSendDeleted.add(event.getMessageId());
-                event.getMessage().delete().queue();
+                event.getMessage().delete().reason("Command Message").queue();
 
                 if (!Utils.isStaff(member)) {
                     EmbedBuilder embed = new EmbedBuilder();
@@ -58,9 +58,10 @@ public class Suggestions extends ListenerAdapter {
                 for (PermissionOverride override : event.getChannel().getMemberPermissionOverrides()) {
                     if (override.isMemberOverride()) {
                         event.getChannel().getManager()
-                                .removePermissionOverride(override.getIdLong()).queue();
+                                .removePermissionOverride(override.getIdLong())
+                                .reason("Suggestion closed").queue();
 
-                        override.delete().queue();
+                        override.delete().reason("Suggestion closed").queue();
                     }
                 }
 
@@ -76,14 +77,14 @@ public class Suggestions extends ListenerAdapter {
 
                 event.getChannel().getManager().setName(
                         "sclosed-" + event.getChannel().getName().replace("suggestion-", "")
-                ).queueAfter(1, TimeUnit.SECONDS);
+                ).reason("Suggestion closed").queueAfter(1, TimeUnit.SECONDS);
 
-                event.getChannel().getManager().setTopic("This suggestion is closed.").queue();
+                event.getChannel().getManager().setTopic("This suggestion is closed.").reason("Suggestion Closed").queue();
             }
 
             if (event.getChannel().getName().startsWith("sclosed-")) {
                 ChatActionEvents.shouldNotSendDeleted.add(event.getMessageId());
-                event.getMessage().delete().queue();
+                event.getMessage().delete().reason("Command message").queue();
 
                 if (!Utils.isStaff(member)) {
                     EmbedBuilder embed = new EmbedBuilder();
@@ -103,7 +104,7 @@ public class Suggestions extends ListenerAdapter {
         if (event.getMessage().getContentRaw().equalsIgnoreCase("!deletesuggestion")) {
             if (event.getChannel().getName().startsWith("suggestion-") || event.getChannel().getName().startsWith("sclosed-")) {
                 ChatActionEvents.shouldNotSendDeleted.add(event.getMessageId());
-                event.getMessage().delete().queue();
+                event.getMessage().delete().reason("Command message").queue();
 
                 if (!Utils.isStaff(member)) {
                     EmbedBuilder embed = new EmbedBuilder();
@@ -113,11 +114,18 @@ public class Suggestions extends ListenerAdapter {
                     return;
                 }
 
+                if (Utils.isPermanentChannel(event.getChannel())) {
+                    event.getChannel().sendMessage(new EmbedBuilder().setColor(Color.RED).appendDescription(
+                            "This channel is marked as a permanent one and therefore cannot be deleted!"
+                    ).build()).queue();
+                    return;
+                }
+
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setColor(Color.GREEN);
                 embed.setAuthor("Deleting suggestion...");
                 event.getChannel().sendMessage(embed.build())
-                        .queue(message -> event.getChannel().delete()
+                        .queue(message -> event.getChannel().delete().reason("Suggestion deleted")
                                 .queueAfter(2, TimeUnit.SECONDS));
             }
         }
@@ -152,6 +160,8 @@ public class Suggestions extends ListenerAdapter {
 
                     .addPermissionOverride(DiscordRole.BOT_NO_CHAT_FILTER, EnumSet.of(Permission.VIEW_CHANNEL), null)
                     .addPermissionOverride(DiscordRole.BOT_NO_CHAT_LOGGING, EnumSet.of(Permission.VIEW_CHANNEL), null)
+
+                    .reason("Suggestion created by " + event.getMember().getEffectiveName())
                     .complete();
             channel.sendMessage("<@" + event.getUser().getId() + ">").queue();
 

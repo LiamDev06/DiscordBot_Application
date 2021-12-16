@@ -48,7 +48,9 @@ public class ClearMessageCommand extends BotCommand {
             embed.setColor(Color.GREEN);
             embed.setAuthor("Command Processed! Deleting messages...");
 
-            message.delete().queue();
+            int deletedAmount = messages.size() - 1;
+
+            message.delete().reason(deletedAmount + "message(s) deleted by " + member.getEffectiveName() + " via !clear").queue();
             channel.sendMessage(embed.build()).queue(message1 -> message1.delete().queueAfter(3, TimeUnit.SECONDS));
             channel.deleteMessages(messages).queueAfter(1,TimeUnit.SECONDS);
 
@@ -58,7 +60,7 @@ public class ClearMessageCommand extends BotCommand {
             logEmbed.appendDescription("Someone cleared chat messages in a channel!\n\n");
             logEmbed.appendDescription("**Who:** <@" + member.getId() + ">");
             logEmbed.appendDescription("\n**Channel:** <#" + channel.getId() + ">");
-            logEmbed.appendDescription("\n**Message Amount:** " + (messages.size() - 1));
+            logEmbed.appendDescription("\n**Message Amount:** " + deletedAmount);
             Utils.getDiscordLogsChannel().sendMessage(logEmbed.build()).queue();
 
         } else {

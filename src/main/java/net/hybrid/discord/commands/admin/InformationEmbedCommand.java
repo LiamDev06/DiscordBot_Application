@@ -22,7 +22,7 @@ public class InformationEmbedCommand extends BotCommand {
         if (!Utils.hasRole(member, DiscordRole.DISCORD_MANAGER) && !Utils.hasRole(member, DiscordRole.OWNER))
             return;
         final String newLine = "\n";
-        message.delete().queue();
+        message.delete().reason("Information embed command message removed").queue();
 
         EmbedBuilder linking = new EmbedBuilder();
         linking.setColor(Color.ORANGE);
@@ -102,6 +102,10 @@ public class InformationEmbedCommand extends BotCommand {
 
         general.appendDescription("**Suggestions**" + newLine);
         general.appendDescription("If you have a suggestion of something you think could be a great addition, head over to <#" + "891100829652766750" +"> and let us know!");
+        general.appendDescription(newLine + newLine);
+
+        general.appendDescription("**Emergency Situations**" + newLine);
+        general.appendDescription("If a major emergency ever were to occur, please ping the ones with <@&" + "916462935419785277" + ">. This could be major systems breaking, DDoS attacks, high-up staff accounts hacked or similar. __Abusing this will get you punished__.");
 
         channel.sendMessage("**Thank you for joining the Hybrid discord!** Please take your time to read through the" +
                 " rules and information stated here before using our channels").complete();

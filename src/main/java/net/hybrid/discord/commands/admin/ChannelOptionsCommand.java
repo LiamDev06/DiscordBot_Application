@@ -61,7 +61,9 @@ public class ChannelOptionsCommand extends BotCommand {
             if (args.length > 2) {
                 if (args[2].equalsIgnoreCase("true") || args[2].equalsIgnoreCase("enable")) {
                     if (!Utils.hasChatFilter(channel)) {
-                        channel.getManager().removePermissionOverride(DiscordRole.BOT_NO_CHAT_FILTER).queue();
+                        channel.getManager().removePermissionOverride(DiscordRole.BOT_NO_CHAT_FILTER)
+                                .reason("Chat Filter Enabled")
+                                .queue();
 
                         EmbedBuilder embed = new EmbedBuilder().setColor(Color.GREEN)
                                 .appendDescription("Chat Filter has been enabled for this channel (<#" + channel.getId() + ">).");
@@ -74,7 +76,9 @@ public class ChannelOptionsCommand extends BotCommand {
                     channel.sendMessage(embed.build()).queue();
                 } else if (args[2].equalsIgnoreCase("false") || args[2].equalsIgnoreCase("disable")) {
                     if (Utils.hasChatFilter(channel)) {
-                        channel.getManager().putPermissionOverride(DiscordRole.BOT_NO_CHAT_FILTER, EnumSet.of(Permission.VIEW_CHANNEL), null).queue();
+                        channel.getManager().putPermissionOverride(DiscordRole.BOT_NO_CHAT_FILTER, EnumSet.of(Permission.VIEW_CHANNEL), null)
+                                .reason("Chat Filter Disabled")
+                                .queue();
 
                         EmbedBuilder embed = new EmbedBuilder().setColor(Color.YELLOW)
                                 .appendDescription("Chat Filter has been disabled for this channel (<#" + channel.getId() + ">).");
@@ -102,7 +106,9 @@ public class ChannelOptionsCommand extends BotCommand {
             if (args.length > 2) {
                 if (args[2].equalsIgnoreCase("true") || args[2].equalsIgnoreCase("enable")) {
                     if (!Utils.isPermanentChannel(channel)) {
-                        channel.getManager().putPermissionOverride(DiscordRole.BOT_PERMANENT_CHANNEL, EnumSet.of(Permission.VIEW_CHANNEL), null).queue();
+                        channel.getManager().putPermissionOverride(DiscordRole.BOT_PERMANENT_CHANNEL, EnumSet.of(Permission.VIEW_CHANNEL), null)
+                                .reason("Permanent Mode Enabled")
+                                .queue();
 
                         EmbedBuilder embed = new EmbedBuilder().setColor(Color.GREEN)
                                 .appendDescription("This channel (<#" + channel.getId() + ">) has been marked as a permanent channel.");
@@ -116,7 +122,9 @@ public class ChannelOptionsCommand extends BotCommand {
 
                 } else if (args[2].equalsIgnoreCase("false") || args[2].equalsIgnoreCase("disable")) {
                     if (Utils.isPermanentChannel(channel)) {
-                        channel.getManager().removePermissionOverride(DiscordRole.BOT_PERMANENT_CHANNEL).queue();
+                        channel.getManager().removePermissionOverride(DiscordRole.BOT_PERMANENT_CHANNEL)
+                                .reason("Permanent Mode Disabled")
+                                .queue();
 
                         EmbedBuilder embed = new EmbedBuilder().setColor(Color.YELLOW)
                                 .appendDescription("This channel (<#" + channel.getId() + ">) is not marked as a permanent channel anymore.");
@@ -144,7 +152,9 @@ public class ChannelOptionsCommand extends BotCommand {
             if (args.length > 2) {
                 if (args[2].equalsIgnoreCase("true") || args[2].equalsIgnoreCase("enable")) {
                     if (!Utils.hasChatLogging(channel)) {
-                        channel.getManager().removePermissionOverride(DiscordRole.BOT_NO_CHAT_LOGGING).queue();
+                        channel.getManager().removePermissionOverride(DiscordRole.BOT_NO_CHAT_LOGGING)
+                                .reason("Chat Logging Enabled")
+                                .queue();
 
                         EmbedBuilder embed = new EmbedBuilder().setColor(Color.GREEN)
                                 .appendDescription("Chat Logging has been enabled for this channel (<#" + channel.getId() + ">).");
@@ -158,7 +168,9 @@ public class ChannelOptionsCommand extends BotCommand {
 
                 } else if (args[2].equalsIgnoreCase("false") || args[2].equalsIgnoreCase("disable")) {
                     if (Utils.hasChatLogging(channel)) {
-                        channel.getManager().putPermissionOverride(DiscordRole.BOT_NO_CHAT_LOGGING, EnumSet.of(Permission.VIEW_CHANNEL), null).queue();
+                        channel.getManager().putPermissionOverride(DiscordRole.BOT_NO_CHAT_LOGGING, EnumSet.of(Permission.VIEW_CHANNEL), null)
+                                .reason("Chat Logging Disabled")
+                                .queue();
 
                         EmbedBuilder embed = new EmbedBuilder().setColor(Color.YELLOW)
                                 .appendDescription("Chat Logging has been disabled for this channel (<#" + channel.getId() + ">).");
@@ -186,7 +198,9 @@ public class ChannelOptionsCommand extends BotCommand {
             if (args.length > 2) {
                 if (args[2].equalsIgnoreCase("true") || args[2].equalsIgnoreCase("enable")) {
                     if (!Utils.isStaffChannel(channel)) {
-                        channel.getManager().putPermissionOverride(DiscordRole.BOT_STAFF_CHANNEL, EnumSet.of(Permission.VIEW_CHANNEL), null).queue();
+                        channel.getManager().putPermissionOverride(DiscordRole.BOT_STAFF_CHANNEL, EnumSet.of(Permission.VIEW_CHANNEL), null)
+                                .reason("Staff Channel Mode Enabled")
+                                .queue();
 
                         EmbedBuilder embed = new EmbedBuilder().setColor(Color.GREEN)
                                 .appendDescription("This channel (<#" + channel.getId() + ">) has been marked as a staff channel.");
@@ -200,7 +214,9 @@ public class ChannelOptionsCommand extends BotCommand {
 
                 } else if (args[2].equalsIgnoreCase("false") || args[2].equalsIgnoreCase("disable")) {
                     if (Utils.isStaffChannel(channel)) {
-                        channel.getManager().removePermissionOverride(DiscordRole.BOT_STAFF_CHANNEL).queue();
+                        channel.getManager().removePermissionOverride(DiscordRole.BOT_STAFF_CHANNEL)
+                                .reason("Staff Channel Mode Disabled")
+                                .queue();
 
                         EmbedBuilder embed = new EmbedBuilder().setColor(Color.YELLOW)
                                 .appendDescription("This channel (<#" + channel.getId() + ">) is not marked as a staff channel anymore.");

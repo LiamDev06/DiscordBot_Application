@@ -23,7 +23,7 @@ public class Utils {
         return hasRole(member, DiscordRole.OWNER) ||  hasRole(member, DiscordRole.DISCORD_MANAGER) ||
                 hasRole(member, DiscordRole.SENIOR_MODERATOR) ||
                 hasRole(member, DiscordRole.ADMIN) || hasRole(member, DiscordRole.MODERATOR) ||
-                hasRole(member, DiscordRole.HELPER) || hasRole(member, DiscordRole.STAFF);
+                hasRole(member, DiscordRole.HELPER);
     }
 
     public static boolean isStaffChannel(TextChannel channel) {

@@ -32,7 +32,7 @@ public class BugReports extends ListenerAdapter {
 
         if (event.getMember().hasPermission(permission)
                 && event.getMessage().getContentRaw().equalsIgnoreCase("!bugreportsembedadd")) {
-            event.getMessage().delete().queue();
+            event.getMessage().delete().reason("Deleted due to command message").queue();
 
             EmbedBuilder embed = new EmbedBuilder();
             embed.setColor(Color.GREEN);
@@ -48,7 +48,7 @@ public class BugReports extends ListenerAdapter {
         if (event.getMessage().getContentRaw().equalsIgnoreCase("!closebug")) {
             if (event.getChannel().getName().startsWith("bug-")) {
                 ChatActionEvents.shouldNotSendDeleted.add(event.getMessageId());
-                event.getMessage().delete().queue();
+                event.getMessage().delete().reason("Deleted due to command message").queue();
 
                 if (!Utils.isStaff(member)) {
                     EmbedBuilder embed = new EmbedBuilder();
@@ -61,9 +61,10 @@ public class BugReports extends ListenerAdapter {
                 for (PermissionOverride override : event.getChannel().getMemberPermissionOverrides()) {
                     if (override.isMemberOverride()) {
                         event.getChannel().getManager()
-                                .removePermissionOverride(override.getIdLong()).queue();
+                                .removePermissionOverride(override.getIdLong())
+                                .reason("Bug report closed, user issuer removed").queue();
 
-                        override.delete().queue();
+                        override.delete().reason("Bug report closed, user issuer removed").queue();
                     }
                 }
 
@@ -79,14 +80,14 @@ public class BugReports extends ListenerAdapter {
 
                 event.getChannel().getManager().setName(
                         "bclosed-" + event.getChannel().getName().replace("bug-", "")
-                ).queueAfter(1, TimeUnit.SECONDS);
+                ).reason("Bug report closed").queueAfter(1, TimeUnit.SECONDS);
 
-                event.getChannel().getManager().setTopic("This bug report is closed.").queue();
+                event.getChannel().getManager().setTopic("This bug report is closed.").reason("Bug report closed").queue();
             }
 
             if (event.getChannel().getName().startsWith("bclosed-")) {
                 ChatActionEvents.shouldNotSendDeleted.add(event.getMessageId());
-                event.getMessage().delete().queue();
+                event.getMessage().delete().reason("Deleted due to command message").queue();
 
                 if (!Utils.isStaff(member)) {
                     EmbedBuilder embed = new EmbedBuilder();
@@ -106,7 +107,7 @@ public class BugReports extends ListenerAdapter {
         if (event.getMessage().getContentRaw().equalsIgnoreCase("!deletebug")) {
             if (event.getChannel().getName().startsWith("bug-") || event.getChannel().getName().startsWith("bclosed-")) {
                 ChatActionEvents.shouldNotSendDeleted.add(event.getMessageId());
-                event.getMessage().delete().queue();
+                event.getMessage().delete().reason("Deleted due to command message").queue();
 
                 if (!Utils.isStaff(member)) {
                     EmbedBuilder embed = new EmbedBuilder();
@@ -116,11 +117,18 @@ public class BugReports extends ListenerAdapter {
                     return;
                 }
 
+                if (Utils.isPermanentChannel(event.getChannel())) {
+                    event.getChannel().sendMessage(new EmbedBuilder().setColor(Color.RED).appendDescription(
+                            "This channel is marked as a permanent one and therefore cannot be deleted!"
+                    ).build()).queue();
+                    return;
+                }
+
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setColor(Color.GREEN);
                 embed.setAuthor("Deleting bug report...");
                 event.getChannel().sendMessage(embed.build())
-                        .queue(message -> event.getChannel().delete()
+                        .queue(message -> event.getChannel().delete().reason("Bug report deleted")
                                 .queueAfter(2, TimeUnit.SECONDS));
             }
         }
@@ -155,6 +163,8 @@ public class BugReports extends ListenerAdapter {
 
                     .addPermissionOverride(DiscordRole.BOT_NO_CHAT_FILTER, EnumSet.of(Permission.VIEW_CHANNEL), null)
                     .addPermissionOverride(DiscordRole.BOT_NO_CHAT_LOGGING, EnumSet.of(Permission.VIEW_CHANNEL), null)
+
+                    .reason("Bug report created by " + event.getMember().getEffectiveName())
                     .complete();
             channel.sendMessage("<@" + event.getUser().getId() + ">").queue();
 
