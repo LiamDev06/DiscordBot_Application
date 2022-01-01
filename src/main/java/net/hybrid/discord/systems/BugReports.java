@@ -47,9 +47,6 @@ public class BugReports extends ListenerAdapter {
 
         if (event.getMessage().getContentRaw().equalsIgnoreCase("!closebug")) {
             if (event.getChannel().getName().startsWith("bug-")) {
-                ChatActionEvents.shouldNotSendDeleted.add(event.getMessageId());
-                event.getMessage().delete().reason("Deleted due to command message").queue();
-
                 if (!Utils.isStaff(member)) {
                     EmbedBuilder embed = new EmbedBuilder();
                     embed.setColor(Color.RED);
@@ -86,9 +83,6 @@ public class BugReports extends ListenerAdapter {
             }
 
             if (event.getChannel().getName().startsWith("bclosed-")) {
-                ChatActionEvents.shouldNotSendDeleted.add(event.getMessageId());
-                event.getMessage().delete().reason("Deleted due to command message").queue();
-
                 if (!Utils.isStaff(member)) {
                     EmbedBuilder embed = new EmbedBuilder();
                     embed.setColor(Color.RED);
@@ -106,9 +100,6 @@ public class BugReports extends ListenerAdapter {
 
         if (event.getMessage().getContentRaw().equalsIgnoreCase("!deletebug")) {
             if (event.getChannel().getName().startsWith("bug-") || event.getChannel().getName().startsWith("bclosed-")) {
-                ChatActionEvents.shouldNotSendDeleted.add(event.getMessageId());
-                event.getMessage().delete().reason("Deleted due to command message").queue();
-
                 if (!Utils.isStaff(member)) {
                     EmbedBuilder embed = new EmbedBuilder();
                     embed.setColor(Color.RED);

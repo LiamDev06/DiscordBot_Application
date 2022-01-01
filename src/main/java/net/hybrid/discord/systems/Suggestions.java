@@ -44,9 +44,6 @@ public class Suggestions extends ListenerAdapter {
 
         if (event.getMessage().getContentRaw().equalsIgnoreCase("!closesuggestion")) {
             if (event.getChannel().getName().startsWith("suggestion-")) {
-                ChatActionEvents.shouldNotSendDeleted.add(event.getMessageId());
-                event.getMessage().delete().reason("Command Message").queue();
-
                 if (!Utils.isStaff(member)) {
                     EmbedBuilder embed = new EmbedBuilder();
                     embed.setColor(Color.RED);
@@ -83,9 +80,6 @@ public class Suggestions extends ListenerAdapter {
             }
 
             if (event.getChannel().getName().startsWith("sclosed-")) {
-                ChatActionEvents.shouldNotSendDeleted.add(event.getMessageId());
-                event.getMessage().delete().reason("Command message").queue();
-
                 if (!Utils.isStaff(member)) {
                     EmbedBuilder embed = new EmbedBuilder();
                     embed.setColor(Color.RED);
@@ -103,9 +97,6 @@ public class Suggestions extends ListenerAdapter {
 
         if (event.getMessage().getContentRaw().equalsIgnoreCase("!deletesuggestion")) {
             if (event.getChannel().getName().startsWith("suggestion-") || event.getChannel().getName().startsWith("sclosed-")) {
-                ChatActionEvents.shouldNotSendDeleted.add(event.getMessageId());
-                event.getMessage().delete().reason("Command message").queue();
-
                 if (!Utils.isStaff(member)) {
                     EmbedBuilder embed = new EmbedBuilder();
                     embed.setColor(Color.RED);

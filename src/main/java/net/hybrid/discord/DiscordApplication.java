@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import net.hybrid.discord.commands.*;
+import net.hybrid.discord.commands.admin.ArchiveChannelCommand;
 import net.hybrid.discord.commands.admin.ChannelOptionsCommand;
 import net.hybrid.discord.commands.admin.InformationEmbedCommand;
 import net.hybrid.discord.commands.admin.ResetChatCommand;
@@ -79,6 +80,7 @@ public class DiscordApplication extends JavaPlugin {
         new ChannelOptionsCommand();
         new VoicePartyCommand();
         new ReportCommand();
+        new ArchiveChannelCommand();
 
         saveDefaultConfig();
         getConfig().options().copyDefaults(true);

@@ -20,6 +20,8 @@ public class MessageLengthFilter extends ListenerAdapter {
         int charAmount = event.getMessage().getContentRaw().length();
         int wordAmount = event.getMessage().getContentRaw().split(" ").length;
 
+        //TODO Add so it cannot contain too many \n in the message meaning new lines
+
         if (charAmount >= 900) {
             ChatActionEvents.shouldNotSendDeleted.add(event.getMessageId());
             event.getMessage().delete().reason("Exceeded allowed message length").queue();

@@ -1,7 +1,6 @@
 package net.hybrid.discord.filters;
 
 import lombok.SneakyThrows;
-import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.hybrid.discord.DiscordApplication;
@@ -11,7 +10,6 @@ import javax.annotation.Nonnull;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 
 public class ChatLogs extends ListenerAdapter {
 
@@ -38,7 +36,7 @@ public class ChatLogs extends ListenerAdapter {
         File file = new File(DiscordApplication.getInstance().getDataFolder() + "/logs"
          + "/#" + event.getChannel().getName(), year + "-" + month + "-" + day + "_log.log");
 
-        String content = "[" + event.getMember().getEffectiveName() + " - " + time + " GMT - " + event.getMessageId() + "] " + '"' + event.getMessage().getContentStripped() + '"';
+        String content = "[" + event.getMember().getEffectiveName() + " (" + event.getMember().getId() + ")" + " - " + time + " GMT - " + event.getMessageId() + "] " + '"' + event.getMessage().getContentStripped() + '"';
         FileWriter writer = new FileWriter(file, true);
         BufferedWriter bw = new BufferedWriter(writer);
 
@@ -48,12 +46,14 @@ public class ChatLogs extends ListenerAdapter {
         bw.flush();
         bw.close();
 
-        File files[] = new File(DiscordApplication.getInstance().getDataFolder() +
+        File[] files = new File(DiscordApplication.getInstance().getDataFolder() +
                 "/logs/#" + event.getChannel().getName()).listFiles();
 
+        /* This causes the system to break, will need to look into
         if (files.length >= 5) {
             Arrays.stream(files).findFirst().get().delete();
         }
+         */
     }
 }
 

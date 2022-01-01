@@ -20,7 +20,7 @@ public class Utils {
     }
 
     public static boolean isStaff(Member member){
-        return hasRole(member, DiscordRole.OWNER) ||  hasRole(member, DiscordRole.DISCORD_MANAGER) ||
+        return hasRole(member, DiscordRole.OWNER) ||  hasRole(member, DiscordRole.DISCORD_BOT) ||
                 hasRole(member, DiscordRole.SENIOR_MODERATOR) ||
                 hasRole(member, DiscordRole.ADMIN) || hasRole(member, DiscordRole.MODERATOR) ||
                 hasRole(member, DiscordRole.HELPER);

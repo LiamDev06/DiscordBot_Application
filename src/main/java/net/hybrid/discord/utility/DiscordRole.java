@@ -9,7 +9,7 @@ public class DiscordRole {
     private static final Guild guild = DiscordApplication.getInstance().getDiscordServer();
 
     public static final Role OWNER = guild.getRoleById(880208064211484688L);
-    public static final Role DISCORD_MANAGER = guild.getRoleById(891106412565000243L);
+    public static final Role DISCORD_BOT = guild.getRoleById(891106412565000243L);
     public static final Role ADMIN = guild.getRoleById(880208064211484686L);
     public static final Role SENIOR_MODERATOR = guild.getRoleById(891095405700452362L);
     public static final Role MODERATOR = guild.getRoleById(880208064211484684L);
@@ -24,9 +24,8 @@ public class DiscordRole {
     public static final Role MEMBER_MUTED = guild.getRoleById(901904185430249473L);
     public static final Role LINKED = guild.getRoleById(891097398066167829L);
     public static final Role MUSIC_DJ = guild.getRoleById(891102994895077396L);
+    public static final Role EMERGENCY_CONTACT = guild.getRoleById(916462935419785277L);
     public static final Role SYNC_LOCK = guild.getRoleById(891097327622844467L);
-    public static final Role PROOFREADER = guild.getRoleById(906704637372026900L);
-    public static final Role TRANSLATOR = guild.getRoleById(906704604572553227L);
     public static final Role PING_UPDATES = guild.getRoleById(898232378743455754L);
     public static final Role PING_EVENTS = guild.getRoleById(882764493933936670L);
     public static final Role PING_SURVIVAL_UPDATES = guild.getRoleById(882764530093002842L);

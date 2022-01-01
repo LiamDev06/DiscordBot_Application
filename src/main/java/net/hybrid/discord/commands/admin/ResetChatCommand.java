@@ -22,7 +22,7 @@ public class ResetChatCommand extends BotCommand {
     public void onCommand(Member member, Message message, TextChannel channel, String[] args) {
         if (member == null) return;
         if (!Utils.hasRole(member, DiscordRole.OWNER)
-                && !Utils.hasRole(member, DiscordRole.DISCORD_MANAGER)
+                && !Utils.hasRole(member, DiscordRole.DISCORD_BOT)
                 && !Utils.hasRole(member, DiscordRole.ADMIN)) return;
 
         if (Utils.isPermanentChannel(channel)) {

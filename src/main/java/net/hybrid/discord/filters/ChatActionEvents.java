@@ -57,7 +57,7 @@ public class ChatActionEvents extends ListenerAdapter {
             if (Utils.isStaffChannel(event.getChannel())) return;
 
             EmbedBuilder embed = new EmbedBuilder();
-            embed.setColor(Color.RED);
+            embed.setColor(Color.YELLOW);
             embed.setAuthor(member.getEffectiveName(), member.getUser().getEffectiveAvatarUrl(), member.getUser().getEffectiveAvatarUrl());
             embed.addField("Action", ChatAction.DELETION.name(), true);
             embed.addField("Author", "<@" + member.getId() + ">", true);
@@ -117,18 +117,21 @@ public class ChatActionEvents extends ListenerAdapter {
             }
         }
 
+        String messageIDLink = "[" + event.getMessageId() + "]("
+                + "https://discord.com/channels/" + event.getGuild().getId() + "/"
+                + event.getChannel().getId() + "/" + event.getMessageId() + ")";
+
         EmbedBuilder embed = new EmbedBuilder();
-        embed.setColor(Color.RED);
+        embed.setColor(Color.YELLOW);
         embed.setAuthor(event.getMember().getEffectiveName(), event.getMember().getUser().getEffectiveAvatarUrl(), event.getMember().getUser().getEffectiveAvatarUrl());
         embed.addField("Action", ChatAction.EDIT.name(), true);
         embed.addField("Author", "<@" + event.getMember().getId() + ">", true);
-        embed.addField("Message ID", event.getMessageId(), true);
+        embed.addField("Message ID", messageIDLink, true);
         embed.addField("Channel", "<#" + event.getChannel().getId() + ">", true);
         embed.addBlankField(true);
         embed.addBlankField(true);
         embed.addField("Before", before, true);
         embed.addField("After", event.getMessage().getContentDisplay(), true);
-
         Utils.getDiscordLogsChannel().sendMessage(embed.build()).queue();
 
         messages.remove(event.getMessageId());

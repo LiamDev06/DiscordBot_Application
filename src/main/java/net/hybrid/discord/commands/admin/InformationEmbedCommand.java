@@ -19,7 +19,7 @@ public class InformationEmbedCommand extends BotCommand {
 
     @Override
     public void onCommand(Member member, Message message, TextChannel channel, String[] args) {
-        if (!Utils.hasRole(member, DiscordRole.DISCORD_MANAGER) && !Utils.hasRole(member, DiscordRole.OWNER))
+        if (!Utils.hasRole(member, DiscordRole.DISCORD_BOT) && !Utils.hasRole(member, DiscordRole.OWNER))
             return;
         final String newLine = "\n";
         message.delete().reason("Information embed command message removed").queue();

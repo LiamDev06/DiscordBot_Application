@@ -47,9 +47,6 @@ public class Support extends ListenerAdapter {
 
         if (event.getMessage().getContentRaw().equalsIgnoreCase("!closeticket")) {
             if (event.getChannel().getName().startsWith("support-")) {
-                ChatActionEvents.shouldNotSendDeleted.add(event.getMessageId());
-                event.getMessage().delete().reason("command message").queue();
-
                 if (!Utils.isStaff(member)) {
                     EmbedBuilder embed = new EmbedBuilder();
                     embed.setColor(Color.RED);
@@ -87,9 +84,6 @@ public class Support extends ListenerAdapter {
             }
 
             if (event.getChannel().getName().startsWith("tclosed-")) {
-                ChatActionEvents.shouldNotSendDeleted.add(event.getMessageId());
-                event.getMessage().delete().reason("Command message").queue();
-
                 if (!Utils.isStaff(member)) {
                     EmbedBuilder embed = new EmbedBuilder();
                     embed.setColor(Color.RED);
@@ -107,9 +101,6 @@ public class Support extends ListenerAdapter {
 
         if (event.getMessage().getContentRaw().equalsIgnoreCase("!deleteticket")) {
             if (event.getChannel().getName().startsWith("support-") || event.getChannel().getName().startsWith("tclosed-")) {
-                ChatActionEvents.shouldNotSendDeleted.add(event.getMessageId());
-                event.getMessage().delete().reason("Command message").queue();
-
                 if (!Utils.isStaff(member)) {
                     EmbedBuilder embed = new EmbedBuilder();
                     embed.setColor(Color.RED);

@@ -19,6 +19,7 @@ C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\
 C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\managers\VoiceLoungeManager.java
 C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\utility\DiscordRole.java
 C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\commands\admin\ResetChatCommand.java
+C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\commands\admin\ArchiveChannelCommand.java
 C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\commands\staff\ClearMessageCommand.java
 C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\commands\ReportCommand.java
 C:\Users\liamh\OneDrive\Skrivbord\New Hybrid\Development\DiscordBot_Application\src\main\java\net\hybrid\discord\filters\BlacklistedWordsFilter.java

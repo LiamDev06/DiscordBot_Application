@@ -9,6 +9,7 @@ net\hybrid\discord\utility\ChatAction.class
 com\github\liamhbest0608\CommandAPI.class
 net\hybrid\discord\commands\ReportCommand.class
 net\hybrid\discord\commands\VoicePartyCommand.class
+net\hybrid\discord\commands\admin\ArchiveChannelCommand.class
 net\hybrid\discord\commands\admin\ResetChatCommand.class
 net\hybrid\discord\filters\ChatLogs.class
 net\hybrid\discord\systems\BugReports.class
