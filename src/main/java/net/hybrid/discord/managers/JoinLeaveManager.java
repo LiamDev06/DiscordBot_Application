@@ -4,8 +4,8 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.hybrid.discord.utility.DiscordRole;
-import net.hybrid.discord.utility.Utils;
+import net.hybrid.discord.utils.DiscordRole;
+import net.hybrid.discord.utils.Utils;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
@@ -15,9 +15,9 @@ public class JoinLeaveManager extends ListenerAdapter {
     @Override
     public void onGuildMemberJoin(@Nonnull GuildMemberJoinEvent event){
         int memberCount = event.getGuild().getMemberCount() - 2;
-        assert DiscordRole.MEMBER != null;
+        assert DiscordRole.UNVERIFIED != null;
 
-        event.getGuild().addRoleToMember(event.getUser().getId(), DiscordRole.MEMBER)
+        event.getGuild().addRoleToMember(event.getUser().getId(), DiscordRole.UNVERIFIED)
                 .reason("User Joined").queue();
 
         EmbedBuilder embed = new EmbedBuilder();
@@ -40,5 +40,7 @@ public class JoinLeaveManager extends ListenerAdapter {
         embed.appendDescription("The main discord now has **" + memberCount + "** members.");
 
         Utils.getDiscordLogsChannel().sendMessage(embed.build()).queue();
+
+        //TODO: Automatically unlink the user
     }
 }

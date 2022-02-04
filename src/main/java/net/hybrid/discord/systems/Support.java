@@ -10,9 +10,8 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.hybrid.discord.DiscordApplication;
-import net.hybrid.discord.filters.ChatActionEvents;
-import net.hybrid.discord.utility.DiscordRole;
-import net.hybrid.discord.utility.Utils;
+import net.hybrid.discord.utils.DiscordRole;
+import net.hybrid.discord.utils.Utils;
 
 import javax.annotation.Nonnull;
 import java.awt.*;

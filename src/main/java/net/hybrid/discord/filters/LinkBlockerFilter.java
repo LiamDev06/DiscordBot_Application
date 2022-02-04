@@ -4,36 +4,32 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.hybrid.discord.utils.Utils;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.awt.*;
 
-public class MessageLengthFilter extends ListenerAdapter {
+public class LinkBlockerFilter extends ListenerAdapter {
 
     @Override
-    public void onGuildMessageReceived(@Nonnull GuildMessageReceivedEvent event) {
+    public void onGuildMessageReceived(@NotNull GuildMessageReceivedEvent event) {
         if (event.getMember() == null) return;
         if (Utils.isStaff(event.getMember())) return;
         if (Utils.isStaffChannel(event.getChannel())) return;
         if (!Utils.hasChatFilter(event.getChannel())) return;
 
-        int charAmount = event.getMessage().getContentRaw().length();
-        int wordAmount = event.getMessage().getContentRaw().split(" ").length;
+        String links = "";
 
-        //TODO Add so it cannot contain too many \n in the message meaning new lines
-
-        if (charAmount >= 900) {
+        if (containsLink(event.getMessage().getContentRaw().trim())) {
             ChatActionEvents.shouldNotSendDeleted.add(event.getMessageId());
-            event.getMessage().delete().reason("Exceeded allowed message length").queue();
+            event.getMessage().delete().reason("Message contained a link").queue();
 
             EmbedBuilder embed = new EmbedBuilder();
             embed.setColor(Color.RED);
-            embed.setTitle("Message Length (Spam Protection)");
-            embed.appendDescription("A message exceeded the allowed message length!\n\n");
+            embed.setTitle("Link Blocker (Scam Protection)");
+            embed.appendDescription("A message contained a link that was not allowed!!\n\n");
             embed.appendDescription("**User:** <@" + event.getMember().getIdLong() + ">\n");
             embed.appendDescription("**Channel:** <#" + event.getChannel().getId() + ">\n");
-            embed.appendDescription("**Characters:** " + charAmount);
-            embed.appendDescription("\n**Words:** " + wordAmount + "\n\n");
+            embed.appendDescription("**Links:** " + links + "\n");
             embed.appendDescription("**Deleted Message**:\n");
 
             try {
@@ -46,8 +42,12 @@ public class MessageLengthFilter extends ListenerAdapter {
         }
 
     }
-}
 
+    private boolean containsLink(String input) {
+        return false;
+    }
+
+}
 
 
 

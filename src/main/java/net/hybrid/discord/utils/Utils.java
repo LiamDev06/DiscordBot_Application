@@ -1,8 +1,11 @@
-package net.hybrid.discord.utility;
+package net.hybrid.discord.utils;
 
 import net.dv8tion.jda.api.entities.*;
 import net.hybrid.discord.DiscordApplication;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +23,7 @@ public class Utils {
     }
 
     public static boolean isStaff(Member member){
-        return hasRole(member, DiscordRole.OWNER) ||  hasRole(member, DiscordRole.DISCORD_BOT) ||
+        return hasRole(member, DiscordRole.OWNER) ||  hasRole(member, DiscordRole.DISCORD_MANAGER) ||
                 hasRole(member, DiscordRole.SENIOR_MODERATOR) ||
                 hasRole(member, DiscordRole.ADMIN) || hasRole(member, DiscordRole.MODERATOR) ||
                 hasRole(member, DiscordRole.HELPER);
@@ -55,6 +58,17 @@ public class Utils {
             return true;
         }
     }
+
+    public static boolean hasAutoSlowMode(TextChannel channel) {
+        try {
+            assert DiscordRole.BOT_AUTO_SLOW_MODE != null;
+
+            return channel.getPermissionOverride(DiscordRole.BOT_AUTO_SLOW_MODE).isRoleOverride();
+        } catch (NullPointerException exception) {
+            return false;
+        }
+    }
+
     public static boolean isPermanentChannel(GuildChannel channel) {
         try {
             assert DiscordRole.BOT_PERMANENT_CHANNEL != null;
@@ -75,6 +89,41 @@ public class Utils {
 
     public static Member getUserFromMember(User user) {
         return DiscordApplication.getInstance().getDiscordServer().getMember(user);
+    }
+
+    public static boolean isMessageBlacklisted(String message) {
+        File file = new File(DiscordApplication.getInstance().getDataFolder(), "blacklisted-words.yml");
+        FileConfiguration config = YamlConfiguration.loadConfiguration(file);
+
+        List<String> blacklistWords = config.getStringList("words");
+
+        for (String word : message.trim().split(" ")) {
+            word = replace(word);
+
+            if (blacklistWords.contains(word.toLowerCase())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static String replace(String input){
+        return input.replace("'", "")
+                .replace(".", "")
+                .replace(",", "")
+                .replace("?", "")
+                .replace("!", "")
+                .replace("_", " ")
+                .replace("-", " ")
+                .replace("@", " ")
+                .replace("$", "")
+                .replace("%", "")
+                .replace("&", "")
+                .replace("{", "")
+                .replace("}", "")
+                .replace("(", "")
+                .replace(")", "");
     }
 
     public static TextChannel getStaffCommandsChannel() {

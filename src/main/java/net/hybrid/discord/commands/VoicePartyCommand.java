@@ -4,7 +4,7 @@ import com.github.liamhbest0608.BotCommand;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
 import net.hybrid.discord.DiscordApplication;
-import net.hybrid.discord.utility.Utils;
+import net.hybrid.discord.utils.Utils;
 
 import java.util.EnumSet;
 

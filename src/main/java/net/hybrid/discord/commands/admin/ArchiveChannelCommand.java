@@ -6,8 +6,8 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.managers.ChannelManager;
 import net.hybrid.discord.DiscordApplication;
-import net.hybrid.discord.utility.DiscordRole;
-import net.hybrid.discord.utility.Utils;
+import net.hybrid.discord.utils.DiscordRole;
+import net.hybrid.discord.utils.Utils;
 
 import java.awt.*;
 import java.util.EnumSet;

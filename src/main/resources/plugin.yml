@@ -1,4 +1,6 @@
 name: HybridDiscordApplication
 main: net.hybrid.discord.DiscordApplication
 version: 0.4.1
+depend:
+  - HybridCorePlugin
 authors: ["LiamHBest", "Hybrid Development"]

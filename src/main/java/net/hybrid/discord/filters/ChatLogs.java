@@ -4,7 +4,7 @@ import lombok.SneakyThrows;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.hybrid.discord.DiscordApplication;
-import net.hybrid.discord.utility.Utils;
+import net.hybrid.discord.utils.Utils;
 
 import javax.annotation.Nonnull;
 import java.io.*;
@@ -36,7 +36,12 @@ public class ChatLogs extends ListenerAdapter {
         File file = new File(DiscordApplication.getInstance().getDataFolder() + "/logs"
          + "/#" + event.getChannel().getName(), year + "-" + month + "-" + day + "_log.log");
 
-        String content = "[" + event.getMember().getEffectiveName() + " (" + event.getMember().getId() + ")" + " - " + time + " GMT - " + event.getMessageId() + "] " + '"' + event.getMessage().getContentStripped() + '"';
+        String content = "[" + event.getMessageId() + " -==- " + time + "-GMT] " + event.getMember().getEffectiveName() + "#" + event.getAuthor().getDiscriminator() + ": " + '"' + event.getMessage().getContentStripped() + '"';
+
+        if (Utils.isMessageBlacklisted(event.getMessage().getContentRaw()) && !Utils.isStaff(event.getMember()) && !Utils.isStaffChannel(event.getChannel()) && Utils.hasChatFilter(event.getChannel())) {
+            content = "(BLACKLISTED) " + content;
+        }
+
         FileWriter writer = new FileWriter(file, true);
         BufferedWriter bw = new BufferedWriter(writer);
 

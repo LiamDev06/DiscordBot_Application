@@ -5,15 +5,16 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.hybrid.discord.DiscordApplication;
-import net.hybrid.discord.utility.ChatAction;
-import net.hybrid.discord.utility.DiscordRole;
-import net.hybrid.discord.utility.Utils;
+import net.hybrid.discord.utils.ChatAction;
+import net.hybrid.discord.utils.DiscordRole;
+import net.hybrid.discord.utils.Utils;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 
 public class BlacklistedWordsFilter extends ListenerAdapter {
@@ -46,7 +47,11 @@ public class BlacklistedWordsFilter extends ListenerAdapter {
 
             if (blacklistWords.contains(word.toLowerCase())) {
                 blacklist = true;
-                words.append(word).append("   ");
+
+                List<String> wordsLIst = Arrays.stream(words.toString().split(" ")).toList();
+                if (!wordsLIst.contains(word)) {
+                    words.append(word).append("   ");
+                }
             }
         }
 

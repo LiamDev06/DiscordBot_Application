@@ -9,8 +9,8 @@ import net.dv8tion.jda.api.events.guild.voice.GuildVoiceJoinEvent;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceLeaveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.hybrid.discord.DiscordApplication;
-import net.hybrid.discord.utility.DiscordRole;
-import net.hybrid.discord.utility.Utils;
+import net.hybrid.discord.utils.DiscordRole;
+import net.hybrid.discord.utils.Utils;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import javax.annotation.Nonnull;

@@ -8,7 +8,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.hybrid.discord.DiscordApplication;
 import net.hybrid.discord.moderation.LogDate;
 import net.hybrid.discord.moderation.ReportLogger;
-import net.hybrid.discord.utility.Utils;
+import net.hybrid.discord.utils.Utils;
 
 import java.awt.*;
 import java.time.LocalDateTime;

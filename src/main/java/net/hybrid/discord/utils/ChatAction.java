@@ -1,4 +1,4 @@
-package net.hybrid.discord.utility;
+package net.hybrid.discord.utils;
 
 public enum ChatAction {
 

@@ -5,8 +5,8 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
-import net.hybrid.discord.utility.DiscordRole;
-import net.hybrid.discord.utility.Utils;
+import net.hybrid.discord.utils.DiscordRole;
+import net.hybrid.discord.utils.Utils;
 
 import java.awt.*;
 import java.util.concurrent.TimeUnit;
@@ -19,7 +19,7 @@ public class InformationEmbedCommand extends BotCommand {
 
     @Override
     public void onCommand(Member member, Message message, TextChannel channel, String[] args) {
-        if (!Utils.hasRole(member, DiscordRole.DISCORD_BOT) && !Utils.hasRole(member, DiscordRole.OWNER))
+        if (!Utils.hasRole(member, DiscordRole.DISCORD_MANAGER) && !Utils.hasRole(member, DiscordRole.OWNER))
             return;
         final String newLine = "\n";
         message.delete().reason("Information embed command message removed").queue();

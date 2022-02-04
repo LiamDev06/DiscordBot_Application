@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageHistory;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.hybrid.discord.filters.ChatActionEvents;
-import net.hybrid.discord.utility.Utils;
+import net.hybrid.discord.utils.Utils;
 
 import java.awt.*;
 import java.util.List;

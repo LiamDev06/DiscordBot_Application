@@ -6,9 +6,9 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageDeleteEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageUpdateEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.hybrid.discord.utility.ChatAction;
-import net.hybrid.discord.utility.DiscordRole;
-import net.hybrid.discord.utility.Utils;
+import net.hybrid.discord.utils.ChatAction;
+import net.hybrid.discord.utils.DiscordRole;
+import net.hybrid.discord.utils.Utils;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
@@ -31,6 +31,7 @@ public class ChatActionEvents extends ListenerAdapter {
         if (event.getMember() == null) return;
         if (Utils.isStaff(event.getMember())) return;
         if (Utils.isStaffChannel(event.getChannel())) return;
+        if (!Utils.hasChatLogging(event.getChannel())) return;
         if (event.getAuthor().isBot()) return;
         if (event.getAuthor().isSystem()) return;
 
@@ -55,6 +56,7 @@ public class ChatActionEvents extends ListenerAdapter {
             if (member.getUser().isSystem()) return;
             if (Utils.isStaff(member)) return;
             if (Utils.isStaffChannel(event.getChannel())) return;
+            if (!Utils.hasChatLogging(event.getChannel())) return;
 
             EmbedBuilder embed = new EmbedBuilder();
             embed.setColor(Color.YELLOW);
@@ -79,6 +81,7 @@ public class ChatActionEvents extends ListenerAdapter {
         if (event.getAuthor().isSystem()) return;
         if (Utils.isStaff(event.getMember())) return;
         if (Utils.isStaffChannel(event.getChannel())) return;
+        if (!Utils.hasChatLogging(event.getChannel())) return;
 
         String before = messages.getOrDefault(event.getMessageId(),
                 "COULD NOT BE FETCHED");
