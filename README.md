@@ -1,2 +1,4 @@
 # DiscordBot_Application
-Hybrid discord but for the official Hybrid discord server, see https://dsc.gg/hybridserver
+
+A Discord bot I created when working at Hybrid as Lead Developer.
+Yes. The bot token is outdated.
